@@ -1,6 +1,5 @@
 import Caselle.*;
 
-import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -10,25 +9,29 @@ public class Mappa {
     public Casella caselle[][];
     public int size[]=new int[2];
     public Mappa(int Sx,int Sy){
-        caselle=new Casella[Sx][Sy];
+        caselle=new Casella[Sx][Sy];//creo la matrice di caselle
         size[0]=Sx;
         size[1]=Sy;
     }
-    public void genera(String urlEventi,int mixCaselle) throws Exception {
-        List<String> lines= Files.readAllLines(Paths.get(urlEventi));
+    public void genera(String urlEventi,int mixCaselle) throws Exception {//assegnazione degli eventi ad ogni casella
+        List<String> lines= Files.readAllLines(Paths.get(urlEventi));//prendo il file e lo leggo
         int Nrighe=lines.size();
         for(int x=0;x<size[0];x++)
-            for(int y=0;y<size[1];y++){
-                 Random  random=new Random();
-                 int i=random.nextInt(Nrighe);
-                 i=i%2==0?i:i-1;
-                 if(random.nextInt(mixCaselle)!=0)
-                     caselle[x][y]=new Casella(lines.get(i),lines.get(i+1));
-                 else
-                     caselle[x][y]=new Casella();
+            for(int y=0;y<size[1];y++) {
+                //per ogni casella :
+                //scelgo se inserire una casella con evento o libera
+                Random random = new Random();
+                if (random.nextInt(mixCaselle) != 0) {//[nextInt->0..mixCaselle),scelgo se inserire evento
+                    //estraggo un evento casuale dal file
+                    random = new Random();
+                    int i = random.nextInt(Nrighe);
+                    i = i % 2 == 0 ? i : i - 1;//prendo una 'i' pari,i pari =descrizione,i dispari=steps
+                    caselle[x][y] = new Casella(lines.get(i+1), lines.get(i));//(new casella(steps,descrizione)
+                } else
+                    caselle[x][y] = new Casella();//casella libera
             }
     }
-    public String toString(){
+    public String toString(){//stampo tutte le caselle della mappa
         String all = "";
         for(int x=0;x<size[0];x++)
             for(int y=0;y<size[1];y++){
