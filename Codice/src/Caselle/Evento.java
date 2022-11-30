@@ -9,11 +9,13 @@ public abstract class Evento {
     public Evento(String []steps,String descrizione){
         this.steps=steps;
         this.descrizione=descrizione;
+        vuota=false;
     }
 
     public Evento() {//evento nullo
-        this.steps=new String[1];
-        steps[0]="vuota";
+        this(new String[]{"vuota"},"vuota");
+        vuota=true;
+
     }
     @Override
     public String toString() {
