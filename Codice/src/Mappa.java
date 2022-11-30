@@ -38,8 +38,12 @@ public class Mappa {
        return caselle[x][y].getSteps();
     }
     public String getStep(int x,int y,int p){
-
-        return caselle[x][y].getSteps(p);
+        try {//x,y non sono al interno dal range size?
+            return caselle[x][y].getSteps(p);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("casella non esistente ,"+size[0]+"x"+size[1]);
+        }
+        return "error";
     }
     public String toString(){//stampo tutte le caselle della mappa
         String all = "";
