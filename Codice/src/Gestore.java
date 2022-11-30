@@ -17,7 +17,8 @@ public class Gestore extends azioniPlayer{
         for(int i=0;i<Nplayer;i++)
             players[i].scegliPedina(pawns);
     }
-    public void loop(){
+    public void loop(String steps,Player player){
+          int i=player.iSteps;
 
     }
 }

@@ -4,6 +4,8 @@ public class Player{
     public String nome;
     private int posizione;
     public Pawn pawn;
+    private String[] steps;
+    public int iSteps;
     //--- private bool stato;
     //--- private int [][] posizione;
     //--- Pedina
@@ -14,6 +16,9 @@ public class Player{
     //--- Funzioni
     public void scegliPedina(Pawn pawn[]){
 
+    }
+    public String[] getStep(Pawn pawn[]){
+       return steps;
     }
     public void movimento(){}
     public void faiAzione(){}
