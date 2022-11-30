@@ -1,20 +1,19 @@
 package oggetti;
 
-public class Player {
+public class Player{
     public String nome;
     private int posizione;
+    public Pawn pawn;
     //--- private bool stato;
     //--- private int [][] posizione;
     //--- Pedina
-    private Pawn pedina;
-
-    public Player(String nome){
-
+    public Player(String nomePlayer){
+        this.nome=nomePlayer;
     }
 
     //--- Funzioni
-    public void scegliPedina(Pawn pawn){
-        pedina = pawn;
+    public void scegliPedina(Pawn pawn[]){
+
     }
     public void movimento(){}
     public void faiAzione(){}

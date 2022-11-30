@@ -1,6 +1,6 @@
 package oggetti;
 
-public class Pawn {
+public abstract class Pawn {
     public String nome;
     private int id;
     private String URL;
