@@ -22,10 +22,10 @@ public class Mappa {
         }
         return true;
     }
-    public Mappa(int size, JPanel j,String urlEventi,int mixCaselle) throws IOException {
+    public Mappa(int size,String urlEventi,int mixCaselle) throws IOException {
         lines = Files.readAllLines(Paths.get(urlEventi));
         Nrighe = lines.size();
-        this.mixCaselle=mixCaselle;
+        this.mixCaselle=mixCaselle;//probabilità caselle nulle
         this.size=size;
         caselle=new Casella[size];//creo la matrice di caselle
         this.urlEventi=urlEventi;
