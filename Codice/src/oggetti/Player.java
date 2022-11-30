@@ -17,8 +17,13 @@ public class Player{
     public void scegliPedina(Pawn pawn[]){
 
     }
-    public String[] getStep(Pawn pawn[]){
-       return steps;
+    public String getStep(){
+        if(iSteps<steps.length)
+           return steps[iSteps];
+        return "null";
+    }
+    public String[] getSteps(){
+        return steps;
     }
     public void movimento(){}
     public void faiAzione(){}

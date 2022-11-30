@@ -1,28 +1,28 @@
 Torna all'inizio
 [inzio]
 Scelgo se andare Avanti/indietro in base al dado ,se il numero del dado è :pari vado avanti,dispari vado indietro
-[tiroDado,MovPari/dispari]
+[tiroDado;MovPari/dispari]
 Movimento dimezzato per n turni randomici
-[Movimento,*0.5,n*]
+[movimento,0.5,n]
 Stai fermo per n turni, in base al dado
-[stop,*,n,*]
+[stop,n]
 Tiro un altra volta
-[tiroDado,Movimento]
+[tiroDado;movimento]
 Scambio la posizione con un giocatore random
-[scambioPosizione,*,Cu,*]
+[scambioPosizione,Cu]
 Scambio la posizione di tutti i giocatori, in senso antiorario
-[scambioPosizione,*,t,-1,*]
+[scambioPosizione,t,-1]
 Scambio la posizione di tutti i giocatori, in modo randomico
-[scambioPosizione,*,Ct,*]
+[scambioPosizione,Ct]
 Avanzo *2 per un turno(esce 3 vado avanti di 6)
-[Movimento,*,*2,1*]
+[movimento,2,1]
 Per due turni ogni volta che tiro il dado vado indietro (mi esce due vado a -2)
-[Movimento,*,*-1,2*]
+[movimento,-1,2]
 Giocatore sceglie un evento positivo per se o negativo per un altro, da un insieme di 2 eventi casuali
-[sceltaPosNeg,eseguo]
+[sceltaPosNeg;eseguo]
 Giocatori scelgono cosa farti fare in base ad un elenco di 3 eventi casuali
-[sceltaTutti,eseguo]
+[sceltaTutti;eseguo]
 più probabilità di avere solo eventi positivi per un turno
-[SetProb,*,0.75,1,*]
+[SetProb,0.75,1]
 Tutti (eccetto lui) tornano alla posizione del turno precedente,senza considerare gli eventi
-[MovimentoTurnoPrec]
+[movimentoTurnoPrec]

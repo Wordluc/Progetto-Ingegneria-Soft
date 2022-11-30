@@ -17,8 +17,34 @@ public class Gestore extends azioniPlayer{
         for(int i=0;i<Nplayer;i++)
             players[i].scegliPedina(pawns);
     }
-    public void loop(String steps,Player player){
-          int i=player.iSteps;
+    private void loopEvento(int i,String step){//paramentro i->giocatore seguente,steps->[evento,paramentro,parametro]
+        System.out.println(step.split(",")[0]);
+          switch (step.split(",")[0]){//seleziono evento da eseguire
 
+              case "inizio":
+                  break;
+              case "tiroDado":
+                  break;
+              case "movimento":
+                  break;
+              case "stop":
+                  break;
+              case "ScambioPosizione":
+                  break;
+              case "sceltaPosNeg":
+                  break;
+              case "sceltaTutti":
+                  break;
+              case "movimentoTurnoPrec":
+                  break;
+              case "MovPari/dispari":
+                  break;
+          }
+          players[i].iSteps+=1;
+
+    }
+    public void loop(){
+        int i=1;//esempio
+        loopEvento(i,players[i].getStep());
     }
 }

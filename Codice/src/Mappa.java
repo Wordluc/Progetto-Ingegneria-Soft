@@ -35,14 +35,14 @@ public class Mappa {
         }
     }
 
-    public String[] genera(int p) throws IOException {//assegnazione degli eventi ad ogni casella
-        if(p<size) {
-                if(!caselle[p].vuoto){
+    public String[] genera(int pCasella) throws IOException {//assegnazione degli eventi ad ogni casella
+        if(pCasella<size) {
+                if(!caselle[pCasella].vuoto){
                     ;//prendo il file e lo leggo
                     Random random = new Random();
                     int i = random.nextInt(Nrighe);
                     i = i % 2 == 0 ? i : i - 1;
-                   return lines.get(i + 1).split(",");
+                    return lines.get(i + 1).split(";");
             } else//casella vuota
                 return new String[]{"vuoto"};
         }
