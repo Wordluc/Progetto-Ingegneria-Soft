@@ -1,5 +1,6 @@
 import Caselle.*;
 
+import javax.swing.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -8,10 +9,12 @@ import java.util.Random;
 public class Mappa {
     public Casella caselle[][];
     public int size[]=new int[2];
-    public Mappa(int Sx,int Sy){
+    private JPanel canvas;
+    public Mappa(int Sx,int Sy,JPanel canvas){
         caselle=new Casella[Sx][Sy];//creo la matrice di caselle
         size[0]=Sx;
         size[1]=Sy;
+        this.canvas=canvas;
     }
     public void genera(String urlEventi,int mixCaselle) throws Exception {//assegnazione degli eventi ad ogni casella
         List<String> lines= Files.readAllLines(Paths.get(urlEventi));//prendo il file e lo leggo
@@ -26,10 +29,17 @@ public class Mappa {
                     random = new Random();
                     int i = random.nextInt(Nrighe);
                     i = i % 2 == 0 ? i : i - 1;//prendo una 'i' pari,i pari =descrizione,i dispari=steps
-                    caselle[x][y] = new Casella(lines.get(i+1), lines.get(i));//(new casella(steps,descrizione)
-                } else
-                    caselle[x][y] = new Casella();//casella libera
+                    caselle[x][y] = new Casella(lines.get(i+1), lines.get(i));//(i+1)->steps,(i)->descrizione)
+                } else//casella vuota
+                    caselle[x][y] = new Casella();
             }
+    }
+    public String[] getSteps(int x,int y){
+       return caselle[x][y].getSteps();
+    }
+    public String getStep(int x,int y,int p){
+
+        return caselle[x][y].getSteps(p);
     }
     public String toString(){//stampo tutte le caselle della mappa
         String all = "";

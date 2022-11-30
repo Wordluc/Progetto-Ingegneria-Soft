@@ -1,27 +1,31 @@
 package Caselle;
 
+import javax.swing.*;
+
 public class Casella extends Evento {
     public String url;
 
-    public Casella(String stepsString,String descrizione) {//con evento
+    public Casella(String stepsString,String descrizione) {//con azione
         super(stepsString.split(","),descrizione);
         vuota=false;
     }
-    public Casella() {//senza evento
+    public Casella() {//senza azione
         super();
         vuota=true;
     }
     //gestione grafica della singola casella
-    public void disegna(){
+    public void disegna(JPanel canvas){
         
     }
-    //ottenere gli steps da compiere
-    public String[] getSteps(){
-        return steps;
+
+    public String[] getSteps(){//ottenere gli steps da compiere
+          return steps;
     }
-    //ottenere lo step alla posizione i
-    public String getSteps(int i){
-        return steps[i];
+
+    public String getSteps(int i){//ottenere lo step[i]
+        if(i<steps.length)
+          return steps[i];
+        return "fuori";
     }
     @Override
     public String toString() {

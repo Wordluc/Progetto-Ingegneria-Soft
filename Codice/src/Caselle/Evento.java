@@ -11,8 +11,9 @@ public abstract class Evento {
         this.descrizione=descrizione;
     }
 
-    public Evento() {
-
+    public Evento() {//evento nullo
+        this.steps=new String[1];
+        steps[0]="vuota";
     }
     @Override
     public String toString() {
