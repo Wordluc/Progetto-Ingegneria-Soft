@@ -29,7 +29,7 @@ public class Gestore extends azioniPlayer{
                   break;
               case "movimento":
                   if(step.length==1)//se non vi sono parametri mi baso solo sul dado
-                     player.setPosizione(Dado.faccia);
+                     player.setPosizione(Dado.getDado());
                   else{//vi sono parametri
 
                   }
