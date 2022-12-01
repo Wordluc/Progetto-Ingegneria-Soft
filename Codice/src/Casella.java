@@ -1,5 +1,3 @@
-package Caselle;
-
 import javax.swing.*;
 
 public class Casella{

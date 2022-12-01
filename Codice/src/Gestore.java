@@ -1,3 +1,4 @@
+import oggetti.Dado;
 import oggetti.Pawn;
 import oggetti.Player;
 
@@ -10,22 +11,29 @@ public class Gestore extends azioniPlayer{
         this.Nplayer=nomi.length;
         players=new Player[Nplayer];
         for(int i=0;i<Nplayer;i++)
-            players[i]=new Player(nomi[i]);
+            players[i]=new Player(nomi[i],mappa.size);
 
     }
     public void setPlayers(Pawn pawns[]){
         for(int i=0;i<Nplayer;i++)
             players[i].scegliPedina(pawns);
     }
-    private void loopEvento(int i,String step){//paramentro i->giocatore seguente,steps->[evento,paramentro,parametro]
-        System.out.println(step.split(",")[0]);
-          switch (step.split(",")[0]){//seleziono evento da eseguire
-
+    private boolean loopEvento(Player player){//paramentro i->giocatore seguente
+          String [] step=player.getStep().split(",");
+          switch (step[0]){//seleziono evento da eseguire
               case "inizio":
+                  player.setPosizione(0);
                   break;
               case "tiroDado":
+                  player.lanciaDado();
                   break;
               case "movimento":
+                  if(step.length==1)//se non vi sono parametri mi baso solo sul dado
+                     player.setPosizione(Dado.faccia);
+                  else{//vi sono parametri
+
+                  }
+
                   break;
               case "stop":
                   break;
@@ -40,11 +48,15 @@ public class Gestore extends azioniPlayer{
               case "MovPari/dispari":
                   break;
           }
-          players[i].iSteps+=1;
+
+          return player.upIsteps();
 
     }
     public void loop(){
-        int i=1;//esempio
-        loopEvento(i,players[i].getStep());
+        int i=1;//esempio player
+        boolean r;
+        do {
+            r=loopEvento(players[i]);
+        }while(r);//vado avanti con il players[i],finche non finisco di eseguire gli eventi
     }
 }

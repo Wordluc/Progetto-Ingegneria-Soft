@@ -1,5 +1,3 @@
-import Caselle.*;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,7 +10,7 @@ public class Mappa {
     private JPanel canvas;
     private String urlEventi;
     private int mixCaselle;
-    private int size;
+    public  int size;
     private int Nrighe ;
     private List<String> lines;
     private boolean eventoSiNo(){
@@ -44,7 +42,7 @@ public class Mappa {
                     i = i % 2 == 0 ? i : i - 1;
                     return lines.get(i + 1).split(";");
             } else//casella vuota
-                return new String[]{"vuoto"};
+                return new String[]{"movimento"};
         }
         System.err.println("fuori mappa");
         return new String[]{"errore"};
