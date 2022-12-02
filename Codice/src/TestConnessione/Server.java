@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Server {
     private ServerSocket serverSocket;
@@ -16,7 +17,16 @@ public class Server {
         this.serverSocket = serverSocket;
         clientHandelers = new ArrayList<>();
     }
+    public void serverClose(){
+        try {
+            String msg = "!close";
+            broardCast(msg);
+            serverSocket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
     public void serverStart(){
         while (!serverSocket.isClosed()){
             try {
@@ -46,10 +56,17 @@ public class Server {
     public void serverMsg(String msg){
         System.out.println(msg);
     }
+
     public void broardCast(String msg, ClientHandeler client){
         for(ClientHandeler c : clientHandelers ) {
             //System.out.println(msg);
             if(!c.equals(client))
+                c.sendMessage(msg);
+        }
+    }
+    public void broardCast(String msg){
+        for(ClientHandeler c : clientHandelers ) {
+            //System.out.println(msg);
                 c.sendMessage(msg);
         }
     }
@@ -58,5 +75,14 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(1111);
         Server server = new Server(serverSocket);
         server.serverStart();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("> ");
+        String msg = sc.nextLine();
+        switch (msg.toLowerCase()){
+            case "!close": {
+                server.serverClose();
+                break;
+            }
+        }
     }
 }

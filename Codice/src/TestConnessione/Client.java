@@ -69,7 +69,14 @@ public class Client {
                while (socket.isConnected()) {
                    try {
                        String msg = reader.readLine();
-                       System.out.println(msg);
+                       switch (msg){
+                           case "!close":{
+                               closeClient();
+                           }
+                           default:
+                               System.out.println(msg);
+                       }
+
                    } catch (IOException E) {
                        closeClient();
                    }

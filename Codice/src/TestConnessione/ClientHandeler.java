@@ -22,9 +22,19 @@ public class ClientHandeler implements Runnable {
     }
     public void sendMessage(String msg){
         try{
-            writer.write(msg);
-            writer.newLine();
-            writer.flush();
+            switch (msg){
+                case "!close":{
+                    writer.write(msg);
+                    writer.newLine();
+                    writer.flush();
+                    closeClientHandeler();
+                }
+                default:
+                    writer.write(msg);
+                    writer.newLine();
+                    writer.flush();
+            }
+
         }catch(IOException E){
             closeClientHandeler();
         }
