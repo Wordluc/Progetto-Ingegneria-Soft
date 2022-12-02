@@ -75,14 +75,9 @@ public class Gestore {
         boolean r;
         do {
             p.lanciaDado();
-            p.movimento();
-            if(mappa.getStatusCasellaVuota(p.getPosizione()))//se ricado in una cella vuota
-               loopEvento(players[i]);//gestisco vecchi eventi
-            else {//se ricado in una cella con evento
-                List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
-                p.setStep(steps);
-                loopEvento(players[i]);
-            }
+            loopEvento(players[i]);
+            List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
+            p.setStep(steps);
 
             if(i<3)
                i+=1;

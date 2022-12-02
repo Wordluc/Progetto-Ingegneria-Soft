@@ -11,7 +11,7 @@ public class Main {
             Gestore g=new Gestore(m, new String[]{"cial", "frf"});
             Player p=g.getPlayer(1);
             m.generaMappa();
-        g.setStepsPlayers(p);
+            g.setStepsPlayers(p);
 
 
             p.multiEventi(1);
