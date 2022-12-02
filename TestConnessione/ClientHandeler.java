@@ -42,10 +42,18 @@ public class ClientHandeler implements Runnable {
         while(client.isConnected()) {
             try {
                 String msg = reader.readLine();
-               // if(msg.contains("!say")){
-                    server.broardCast(name+": "+msg, this);
-                //}
-                //System.out.println(msg);
+                switch(msg){
+                    case "!quit":{
+                        closeClientHandeler();
+                        server.quit(this);
+                        break;
+                    }
+                    default:
+                        server.broardCast(name+": "+msg, this);
+
+                }
+
+
             } catch (IOException e) {
                 closeClientHandeler();
             }

@@ -41,9 +41,20 @@ public class Client {
         while (socket.isConnected()){
             try {
                 String msg = scanner.nextLine();
-                writer.write(msg);
-                writer.newLine();
-                writer.flush();
+                switch (msg){
+                    case "!quit":{
+                        writer.write(msg);
+                        writer.newLine();
+                        writer.flush();
+                        closeClient();
+                        break;
+                    }
+                    default:
+                        writer.write(msg);
+                        writer.newLine();
+                        writer.flush();
+                }
+
             } catch (IOException e) {
                 closeClient();
             }

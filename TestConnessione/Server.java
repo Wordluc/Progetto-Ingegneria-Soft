@@ -18,21 +18,31 @@ public class Server {
     public void serverStart(){
         while (!serverSocket.isClosed()){
             try {
-                System.out.println("[SERVER] Attesa connessione client");
+                serverMsg("[SERVER] Waiting client connection");
                 Socket client = serverSocket.accept();
-                System.out.println("[SERVER] Client connesso");
+                serverMsg("[SERVER] Client connected");
 
                 ClientHandeler c = new ClientHandeler(client, Server.this);
                 clientHandelers.add(c);
                 Thread clientHandeler = new Thread(c);
                 clientHandeler.start();
-
+                
                 broardCast("[SERVER] " + c.name + " has joined the chat", c);
 
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
+    }
+    public void quit(ClientHandeler client){
+        String msg = client.name+" has left the chat";
+        broardCast(msg, client);
+        serverMsg("[SERVER] Client "+client.name+" disconnected");
+        clientHandelers.remove(client);
+
+    }
+    public void serverMsg(String msg){
+        System.out.println(msg);
     }
     public void broardCast(String msg, ClientHandeler client){
         for(ClientHandeler c : clientHandelers ) {
