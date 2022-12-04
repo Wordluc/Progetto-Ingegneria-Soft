@@ -1,46 +1,45 @@
-package TestConnessione;
+package Server;
 
 import java.io.*;
 import java.net.Socket;
 
-public class ClientHandeler implements Runnable {
+public class Client implements Runnable {
     private Socket client;
     private BufferedReader reader;
     private BufferedWriter writer;
-    public String name;
-    private ServerConnection server;
-    public ClientHandeler (Socket client, ServerConnection server){
+    private Server server;
+    public Client(Socket client, Server server){
         try {
             this.client = client;
             this.reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
             this.writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-            this.name = reader.readLine();
             this.server = server;
         }catch (IOException e){
-            closeClientHandeler();
+            closeClient();
         }
     }
+
     public void sendMessage(String msg){
-        try{
-            switch (msg){
-                case "!close":{
-                    writer.write(msg);
-                    writer.newLine();
-                    writer.flush();
-                    closeClientHandeler();
-                }
-                default:
-                    writer.write(msg);
-                    writer.newLine();
-                    writer.flush();
+        switch (msg){
+            case "!close":{
+                write(msg);
+                closeClient();
             }
-
-        }catch(IOException E){
-            closeClientHandeler();
+            default:
+                write(msg);
+            }
+    }
+    public void write(String msg){
+        try {
+            writer.write(msg);
+            writer.newLine();
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }
-    public void closeClientHandeler(){
+    public void closeClient(){
         try {
             client.close();
             reader.close();
@@ -49,27 +48,26 @@ public class ClientHandeler implements Runnable {
             System.out.println(e.getStackTrace());
         }
     }
-
+    //--- Ricevo richieste dal client
     @Override
     public void run() {
         while(client.isConnected()) {
             try {
                 String msg = reader.readLine();
+
                 switch(msg){
                     case "!quit":{
-                        closeClientHandeler();
-                        ServerConnection.quit(this);
+                        closeClient();
+                        ClientHandeler.quit(this);
                         break;
                     }
                     default:
-                        ServerConnection.broardCast(name+": "+msg, this);
+                        server.clientHandeler.broardCast(msg);
                 }
 
-
             } catch (IOException e) {
-                closeClientHandeler();
+                closeClient();
             }
         }
-
     }
 }

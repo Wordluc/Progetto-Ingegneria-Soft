@@ -1,4 +1,4 @@
-package TestConnessione;
+package Client;
 
 import java.io.*;
 import java.net.Socket;
@@ -17,10 +17,6 @@ public class Client {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.name = name;
-            writer.write(name);
-            writer.newLine();
-            writer.flush();
-
         }catch (IOException e){
             closeClient();
         }
@@ -35,31 +31,42 @@ public class Client {
             System.out.println(E.getStackTrace());
         }
     }
+    public void sendMessage(String msg){
+        try {
+            writer.write(msg);
+            writer.newLine();
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //--- Invio messaggi al server
     public void sendMessage(){
-
         Scanner scanner = new Scanner(System.in);
         while (socket.isConnected()){
-            try {
-                String msg = scanner.nextLine();
-                switch (msg){
-                    case "!quit":{
-                        writer.write(msg);
-                        writer.newLine();
-                        writer.flush();
-                        closeClient();
-                        break;
-                    }
-                    default:
-                        writer.write(msg);
-                        writer.newLine();
-                        writer.flush();
+            String msg = scanner.nextLine();
+            switch (msg){
+                case "!quit":{
+                    write(msg);
+                    closeClient();
+                    break;
                 }
-
-            } catch (IOException e) {
-                closeClient();
+                default:
+                    write(msg);
             }
         }
     }
+    public void write(String msg){
+        try {
+            writer.write(msg);
+            writer.newLine();
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    //--- Ascolto messaggi dal server
     public void listenForMessage(){
         new Thread(new Runnable() {
             @Override
@@ -82,6 +89,8 @@ public class Client {
             }
         }).start();
     }
+
+
 
     public static void main(String[] args) throws IOException {
 
