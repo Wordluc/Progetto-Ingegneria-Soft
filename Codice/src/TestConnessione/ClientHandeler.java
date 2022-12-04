@@ -8,8 +8,8 @@ public class ClientHandeler implements Runnable {
     private BufferedReader reader;
     private BufferedWriter writer;
     public String name;
-    private Server server;
-    public ClientHandeler (Socket client, Server server){
+    private ServerConnection server;
+    public ClientHandeler (Socket client, ServerConnection server){
         try {
             this.client = client;
             this.reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -49,6 +49,7 @@ public class ClientHandeler implements Runnable {
             System.out.println(e.getStackTrace());
         }
     }
+
     @Override
     public void run() {
         while(client.isConnected()) {
@@ -57,12 +58,11 @@ public class ClientHandeler implements Runnable {
                 switch(msg){
                     case "!quit":{
                         closeClientHandeler();
-                        server.quit(this);
+                        ServerConnection.quit(this);
                         break;
                     }
                     default:
-                        server.broardCast(name+": "+msg, this);
-
+                        ServerConnection.broardCast(name+": "+msg, this);
                 }
 
 

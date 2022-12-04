@@ -1,88 +1,51 @@
 package TestConnessione;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Server {
-    private ServerSocket serverSocket;
-    private ArrayList<ClientHandeler>clientHandelers;
+    protected ServerSocket serverSocket;
+    protected ServerConnection serverConnection;
+    protected ArrayList<ClientHandeler>clientHandelers;
 
     public Server(ServerSocket serverSocket){
         this.serverSocket = serverSocket;
         clientHandelers = new ArrayList<>();
-    }
-    public void serverClose(){
-        try {
-            String msg = "!close";
-            broardCast(msg);
-            serverSocket.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
     }
     public void serverStart(){
+        serverConnection = new ServerConnection(Server.this);
+        new Thread(serverConnection).start();
+        //--- Attesa connesione client
         while (!serverSocket.isClosed()){
             try {
-                serverMsg("[SERVER] Waiting client connection");
+                serverConnection.console("[SERVER] Waiting client connection");
                 Socket client = serverSocket.accept();
-                serverMsg("[SERVER] Client connected");
+                serverConnection.console("[SERVER] Client connected");
 
-                ClientHandeler c = new ClientHandeler(client, Server.this);
-                clientHandelers.add(c);
-                Thread clientHandeler = new Thread(c);
-                clientHandeler.start();
-                
-                broardCast("[SERVER] " + c.name + " has joined the chat", c);
+                //ClientHandeler c = new ClientHandeler(client, serverConnection);
+                //clientHandelers.add(c);
+                //Thread clientHandeler = new Thread(c);
+                //clientHandeler.start();
+
+
+                clientHandelers.add(new ClientHandeler(client, serverConnection));
+                new Thread(clientHandelers.get(clientHandelers.size()-1)).start();
+
+                //serverConnection.broardCast("[SERVER] " + c.name + " has joined the chat", c);
 
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
-    public void quit(ClientHandeler client){
-        String msg = client.name+" has left the chat";
-        broardCast(msg, client);
-        serverMsg("[SERVER] Client "+client.name+" disconnected");
-        clientHandelers.remove(client);
 
-    }
-    public void serverMsg(String msg){
-        System.out.println(msg);
-    }
-
-    public void broardCast(String msg, ClientHandeler client){
-        for(ClientHandeler c : clientHandelers ) {
-            //System.out.println(msg);
-            if(!c.equals(client))
-                c.sendMessage(msg);
-        }
-    }
-    public void broardCast(String msg){
-        for(ClientHandeler c : clientHandelers ) {
-            //System.out.println(msg);
-                c.sendMessage(msg);
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(1111);
+        ServerSocket serverSocket = new ServerSocket(2222);
         Server server = new Server(serverSocket);
         server.serverStart();
-        Scanner sc = new Scanner(System.in);
-        System.out.print("> ");
-        String msg = sc.nextLine();
-        switch (msg.toLowerCase()){
-            case "!close": {
-                server.serverClose();
-                break;
-            }
-        }
     }
 }
