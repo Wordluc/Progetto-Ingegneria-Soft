@@ -9,14 +9,11 @@ public class ClientHandeler implements Runnable{
     public ClientHandeler(Server server){
         this.server = server;
     }
-
-    public Client checkClient(Client client){
-        for(Client c : server.client ) {
-            if(c.equals(client))
-                return c;
-        }
-        return null;
+    public static void joinRoom(Client client){
+        server.room.addClient(client);
     }
+
+
     //--- Disconnessione client
     public static void quit(Client client){
         server.client.remove(client);
