@@ -7,25 +7,24 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class Mappa extends  GestoreEvento{
+public class GestoreMappa extends  GestoreEvento{
     public Casella caselle[];
     private JPanel canvas;
 
 
-    public  int size;
+    public static int size;
 
     public List<String> generaSteps(int pCasella){
         if(pCasella<size) {
             if(!caselle[pCasella].vuoto) {//casella non vuoto,genero evento
-                return super.generaSteps(pCasella);
+                return super. generaSteps(pCasella);
             }else//evento movimento
                 return Arrays.asList(new String[]{"movimento,1"});
         }
         System.err.println("fuori mappa");
-        return Arrays.asList(new String[]{"errore"});
+        return Arrays.asList(new String[]{"finito"});
     }
-
-    public Mappa(int size,String urlEventi,int mixCaselle) throws IOException {
+    public GestoreMappa(int size, String urlEventi, int mixCaselle) throws IOException {
         super(urlEventi);
 
 

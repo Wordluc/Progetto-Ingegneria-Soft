@@ -1,18 +1,15 @@
 package Entita;
 
 public abstract class Pawn {
-    public String nome;
-    private int id;
     private String URL;
+    public Pawn() {
 
-    public Pawn(String nome, int id, String URL){
-        this.nome = nome;
-        this.id = id;
+    }
+    public void setPawn( String URL){
         this.URL=URL;
     }
+    public void draw(){
 
-    public int getId() {
-        return id;
     }
     public String getURL(){
         return URL;
