@@ -1,11 +1,14 @@
 package Gestione;
 
 import Entita.*;
-import Entita.Dado;
+import Mappa.GestoreMappa;
 
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
-public class Gestore {
+public class Gestore extends JPanel {
     private final GestoreMappa mappa;
     private final Player players[];
     private int Nplayer;
@@ -17,35 +20,25 @@ public class Gestore {
         this.Nplayer=nomi.length;
         players=new Player[Nplayer];
         for(int i=0;i<Nplayer;i++) {
-            players[i] = new Player(nomi[i], mappa.size,dado);
-
+            players[i] = new Player(nomi[i], mappa.size);
         }
-
     }
     public void setPlayers(String url){
           players[iPlayer].setPawn(url);
-
     }
+
     public void setStepsPlayers(Player player){//genero l'evento per il player
         List<String> e=mappa.generaSteps(player.getPosizione());
         player.setStep(e);
     }
-    private void movimento(String [] step,Player player){//gestisco lo spostamento
-        if(step.length==2)//se non vi sono parametri mi baso solo sul dado
-            player.setPosizione(Dado.getDado());
-        else{//vi sono parametri
-
-        }
-          setStepsPlayers(player);
-    }
     private void loopEvento(Player player){
           String steps=player.getStep();
+
           if(steps.equals("null")){
               player.movimento(dado.faccia);
               return;
            }
-
-             String [] step=steps.split(",");//prendo step con i sui parametri da eseguire
+          String [] step=steps.split(",");//prendo step con i sui parametri da eseguire
           int nTurni;
           //controllo quante volte eseguire un evento
           if(step[1].equals("n"))//dipende dal dado
@@ -70,18 +63,20 @@ public class Gestore {
                         player.movimento(dado.faccia*2);
                       else if(step[2].equals("-1"))
                         player.movimento(-dado.faccia);
+                      else if(step[2].equals("0.5"))
+                          player.movimento(Integer.parseInt(String.valueOf(dado.faccia/2)));
                   }
                   break;
               case "stop"://non faccio niente
                   break;
-              case "ScambioPosizione":
-
+              case "scambioPosizione":
+                  player.movimento(dado.faccia);
                   break;
               case "sceltaPosNeg":
-
+                  player.movimento(dado.faccia);
                   break;
               case "sceltaTutti":
-
+                  player.movimento(dado.faccia);
                   break;
               case "movimentoTurnoPrec":
                   player.setPosizione(player.posizioneAntecedente);
@@ -95,30 +90,43 @@ public class Gestore {
           }
 
     }
+    public boolean turnoPLayer(){//turno del giocatore,true->sono arrivato alla fine
+        Player p=players[iPlayer];//player attivo
+        dado.lanciaDado();
+        loopEvento(p);
+        List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
+        if(steps.get(0).equals("finito")) {
+            System.out.print("finito" + p.nome);
+            return true;
+        }
+        if(!p.incrIstep())
+            p.setStep(mappa.getDefaultSteps());
+        if(!mappa.getStatusCasellaVuota(p.getPosizione())) {//genero se vado su una casella con evento
+            setStepsPlayers(p);
 
+        }
+        System.out.println("dado:"+dado.faccia+"\n"+toString());
+        incrIplayer();
+        return false;
+    }
+    public void paint(Graphics g) {
+        mappa.draw(g);
+    }
     public void loop(){
-
-        Player p;
         boolean r;
-        do {
+       /* do {
 
-            p=players[iPlayer];//player attivo
-            dado.lanciaDado();
-            loopEvento(p);
-            System.out.println("dado:"+dado.faccia+"\n"+toString());
-            List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
-            if(steps.get(0).equals("finito"))
+            if(turnoPLayer()) {
                 break;
-            p.setStep(steps);
+            }
 
-            incrIplayer();
-        }while(true);//vado avanti con il players[i],finche non finisco di eseguire gli eventi
-        System.out.print("finito"+ p.nome);
+
+
+        }while(true);//vado avanti con il players[i],finche non finisco di eseguire gli eventi*/
     }
     public Player getPlayer(int i){
         return players[i];
     }
-
     @Override
     public String toString() {
         String a="";
@@ -126,11 +134,13 @@ public class Gestore {
             a+=p;
         return a;
     }
-
     private void incrIplayer(){
         if(iPlayer<3)
             iPlayer+=1;
-        else
-            iPlayer=0;
+        else {
+            iPlayer = 0;
+            System.out.println("NUOVO TURNO");
+        }
     }
+
 }

@@ -1,4 +1,4 @@
-package Entita;
+package Gestione;
 
 import java.util.Random;
 

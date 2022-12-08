@@ -1,6 +1,6 @@
 package Entita;
 
-import Gestione.GestoreMappa;
+import Mappa.GestoreMappa;
 
 import java.util.List;
 
@@ -10,16 +10,14 @@ public class Player extends Pawn{
     public int posizioneAntecedente;
     private List<String> steps;
     public int iSteps;
-    private Dado dado;
+
     //--- private bool stato;
     //--- private int [][] posizione;
     //--- Pedina
-    public Player(String nomePlayer,int sizeMappa,Dado dado){
+    public Player(String nomePlayer, int sizeMappa){
         super();
 
         this.nome=nomePlayer;
-
-        this.dado=dado;
     }
     //--- Funzioni
     public boolean movimento (int n){//vado avanti,nel caso finisco ritorno true

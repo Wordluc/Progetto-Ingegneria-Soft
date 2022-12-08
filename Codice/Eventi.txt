@@ -7,7 +7,7 @@ movimento,n,0.5
 Stai fermo per n turni, in base al dado
 stop,n
 Tiro un altra volta
-tiroDado,1;movimento,1
+tiroDado,1
 Scambio la posizione con un giocatore random
 scambioPosizione,1,Cu
 Scambio la posizione di tutti i giocatori, in senso antiorario
