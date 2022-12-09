@@ -9,8 +9,9 @@ public class ClientHandeler implements Runnable{
     public ClientHandeler(Server server){
         this.server = server;
     }
-    public static void joinRoom(Client client){
-        server.room.addClient(client);
+    public static void joinRoom(String codice, Client client){
+        for(Room r : server.roomManager.rooms)
+            r.addClient(client);
     }
 
 

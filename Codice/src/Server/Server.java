@@ -8,13 +8,15 @@ import java.util.ArrayList;
 public class Server {
     protected ServerSocket serverSocket;
     protected ArrayList<Client>client;
-    protected Room room;
+    protected RoomManager roomManager;
+    //protected Room room;
     protected ClientHandeler clientHandeler;
 
     public Server(ServerSocket serverSocket){
         this.serverSocket = serverSocket;
         client = new ArrayList<>();
-        room = new Room("Alberto");
+        roomManager = new RoomManager();
+
 
         clientHandeler = new ClientHandeler(this);
         new Thread(clientHandeler).start();

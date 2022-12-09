@@ -65,18 +65,22 @@ public class Client implements Runnable {
                         ClientHandeler.quit(this);
                         break;
                     }
+                    /*
                     case "!createRoom":{
-
-                    }
-                    case "!join":{
-                        room = server.room;
-                        server.clientHandeler.joinRoom(this);
                         break;
                     }
+                    case "!createRoom":{
+                        break;
+                    }
+                    case "!join":{
+
+                        break;
+                    }
+                    */
 
                     default:
                         if(player != null) {
-                            server.room.broadCast(player.nome+": "+msg);
+                            room.broadCast(player.nome+": "+msg);
 
                         }
 

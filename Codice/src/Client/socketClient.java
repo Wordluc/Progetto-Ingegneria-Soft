@@ -4,14 +4,14 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class socketClient {
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
 
 
     public String name;
-    public Client(Socket socket, String name){
+    public socketClient(Socket socket, String name){
         try{
             this.socket = socket;
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -90,15 +90,23 @@ public class Client {
         }).start();
     }
 
+    private String[] pureMsg(String msg){
+        String [] message;
+        if(msg.startsWith("!")){
+            message = msg.split(" ");
+
+        }
 
 
+        return null;
+    }
     public static void main(String[] args) throws IOException {
 
         Scanner c = new Scanner(System.in);
         System.out.print("Nome: ");
         String nome = c.nextLine();
         Socket socket = new Socket("localhost",2222);
-        Client client = new Client(socket, nome);
+        socketClient client = new socketClient(socket, nome);
         client.listenForMessage();
         client.sendMessage();
     }
