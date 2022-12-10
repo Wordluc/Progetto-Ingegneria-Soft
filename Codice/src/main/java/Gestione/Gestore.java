@@ -49,7 +49,6 @@ public class Gestore extends JPanel {
           else
               nTurni= Integer.parseInt(step[1]);//controllo per quante azioni effettuare l'evento step
           player.setStep(mappa.multiEventi(nTurni-1,player));//nTurni-1 poichè la prima itarazione la sto gia facendo
-          System.out.println(player.getSteps());
           switch (step[0]){//seleziono evento da eseguire
               case "inizio":
                   player.setPosizione(0);
@@ -79,11 +78,11 @@ public class Gestore extends JPanel {
                   break;
               case "sceltaPosNeg":
                   dado.lanciaDado();
-                  player.movimento(dado.faccia);
+                  player.movimento(Dado.faccia);
                   break;
               case "sceltaTutti":
                   dado.lanciaDado();
-                  player.movimento(dado.faccia);
+                  player.movimento(Dado.faccia);
                   break;
               case "movimentoTurnoPrec":
                   dado.lanciaDado();
@@ -106,10 +105,15 @@ public class Gestore extends JPanel {
         loopEvento(p);
 
         List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
-        if(p.getStep().equals("tiroDado,1"))
-            blocco=true;
-        boolean s=p.incrIstep();
-        if(!p.getStep().equals("stop,1") && !blocco) {
+        if(!p.getStep().equals("[tiroDado,1]")) {
+            iPlayer = incrIplayer();
+
+
+        }
+        labelsteps.setText(players[iPlayer].toString());
+            boolean s=p.incrIstep();
+
+        if(!p.getStep().equals("[stop,1]")) {
             if (mappa.getStatusCasellaVuota(p.getPosizione())) {
                if(!s)
                    p.setStep(mappa.getDefaultSteps());
@@ -123,11 +127,7 @@ public class Gestore extends JPanel {
 
 
 
-        labelsteps.setText(players[incrIplayer()].toString());
-        if(!blocco) {
-            iPlayer=incrIplayer();
 
-        }
 
         revalidate();
         repaint();

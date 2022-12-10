@@ -1,5 +1,5 @@
 Torna all'inizio
-inzio,1
+inizio,1
 Scelgo se andare Avanti/indietro in base al dado ,se il numero del dado è :pari vado avanti,dispari vado indietro
 tiroDado,1;MovPari/dispari,1
 Movimento dimezzato per n turni randomici
