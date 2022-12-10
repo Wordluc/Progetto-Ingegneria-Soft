@@ -2,6 +2,7 @@ package Entita;
 
 import Mappa.GestoreMappa;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Player extends Pawn{
@@ -14,8 +15,9 @@ public class Player extends Pawn{
     //--- private bool stato;
     //--- private int [][] posizione;
     //--- Pedina
-    public Player(String nomePlayer, int sizeMappa){
-        super();
+    public Player(String nomePlayer, int sizeMappa,String url) throws IOException {
+        super(url);
+
 
         this.nome=nomePlayer;
     }
@@ -34,7 +36,7 @@ public class Player extends Pawn{
         posizioneAntecedente = posizione;
         if(i<GestoreMappa.size) {
 
-              if(posizione>=0)
+              if(i>=0)
                   posizione = i;
               else
                 posizione=0;
@@ -46,7 +48,9 @@ public class Player extends Pawn{
        return posizione;
     }
     public void setStep(List<String>steps){
+
         this.steps=steps;
+        iSteps=0;
     }
     public List<String> getSteps(){
         return steps;
@@ -75,7 +79,7 @@ public class Player extends Pawn{
 
     @Override
     public String toString() {
-        return "nome"+nome+",posizione"+getPosizione()+":"+steps.toString();
+        return "nome"+nome+",posizione"+getPosizione()+":"+getSteps();
 
     }
 }

@@ -1,5 +1,6 @@
 package Mappa;
 
+import Entita.Player;
 import GUI.GestoreGui;
 
 import javax.swing.*;
@@ -10,15 +11,23 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class GestoreMappa extends GestoreEvento {
     public Casella caselle[];
 
 
     public static int size;
-    public void draw(Graphics g){
-        for (int i=0;i<size;i++)
-            caselle[i].paint(g);
+    public void draw(Graphics g, Player ps[]){
+        for (int ic=0;ic<size;ic++)
+            caselle[ic].paint(g);
+        for(int ip=0;ip<ps.length;ip++)
+            if(ps[ip].getPosizione()<size)
+              caselle[ps[ip].getPosizione()].drawPow(g,ps[ip].image,ip,ps);
+
+
+
+
+
+
     }
     public List<String> generaSteps(int pCasella){
         if(pCasella<size) {
@@ -65,9 +74,12 @@ public class GestoreMappa extends GestoreEvento {
         return pos;
     }
     public boolean getStatusCasellaVuota(int p){
-        return caselle[p].vuota;
+        try {
+            return caselle[p].vuota;
+        }catch (Exception e) {
+            return false;
+        }
     }
-
     public void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
         String[]s=genMatrix(size/5,5);
         BufferedImage vuoto=GestoreGui.getImage("C:\\Users\\frang\\Desktop\\Java\\Progetto-Ingegneria-Soft\\Codice\\src\\main\\java\\vuota.png");

@@ -5,6 +5,7 @@ import Entita.Player;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -22,14 +23,18 @@ public abstract class GestoreEvento {
     public List<String> multiEventi(int n, Player player){//duplicazione evento,es:muoviti più veloce per due turni=[muovitiVeloce,2]->[muovitiVeloce;muovitiVeloce]
 
         List<String> step= Arrays.asList(player.getStep().split(","));
+
         step.set(1,"1");
-        Stream<String> stream = Stream.of();
-        stream = Stream.concat(stream, player.getSteps().stream());
-        for (int i=0;i<n;i++) {
-            stream = Stream.concat(stream, step.stream());
+
+        List<String> r=new ArrayList<>();
+        String s=step.toString();
+        s=s.replace(" ","");
+        for (int i=0;i<n+1;i++) {
+            r.add(s);
         }
 
-        return stream.collect(Collectors.toList());
+
+        return r;
 
     }
     protected boolean vuotaSiNo(){//mixCaselle>>0 ->piu caselle con eventi ho

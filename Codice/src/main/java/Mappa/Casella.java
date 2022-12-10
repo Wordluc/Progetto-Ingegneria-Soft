@@ -1,5 +1,7 @@
 package Mappa;
 
+import Entita.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,5 +30,18 @@ public class Casella extends JFrame{
     }
     public void paint(Graphics g){
             g.drawImage(image, x*size, y*size, null);
+    }
+    public void drawPow(Graphics g,BufferedImage image, int i, Player ps[]){
+        switch (i) {
+            case 0:
+                g.drawImage(image,x*size+0,y*size+0,null);
+            case 1:
+                g.drawImage(image,x*size+25,y*size+0,null);
+            case 2:
+                g.drawImage(image,x*size+25,y*size+25,null);
+            case 3:
+                g.drawImage(image,x*size+0,y*size+25,null);
+        }
+
     }
 }
