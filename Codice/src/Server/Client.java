@@ -1,98 +1,48 @@
 package Server;
 
+import Common.PacketClient;
+import Common.PacketServer;
+
 import java.io.*;
 import java.net.Socket;
 
-public class Client implements Runnable {
-    private Socket client;
-    private BufferedReader reader;
-    private BufferedWriter writer;
-    private Server server;
-    private Player player;
-    private Room room;
-
-    public Client(Socket client, Server server){
-        try {
-            this.client = client;
-            this.reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            this.writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-            this.server = server;
-            player = new Player(reader.readLine());
-        }catch (IOException e){
-            closeClient();
-        }
+public class Client {
+    Socket socket;
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
+    private OutputStream outputStream;
+    private InputStream inputStream;
+    private ClientManager clientManager;
+    public Client(Socket socket, ClientManager clientManager) throws IOException {
+        this.socket = socket;
+        this.clientManager=clientManager;
+        outputStream = socket.getOutputStream();
+        output = new ObjectOutputStream(outputStream);
+        inputStream = socket.getInputStream();
+        input = new ObjectInputStream(inputStream);
     }
-
-    public void sendMessage(String msg){
-        switch (msg){
-            case "!close":{
-                write(msg);
-                closeClient();
-            }
-            default:
-                write(msg);
-            }
+    public void sendMessage(String msg) throws IOException {
+        output.writeObject(new PacketServer(msg));
     }
-    public void write(String msg){
-        try {
-            writer.write(msg);
-            writer.newLine();
-            writer.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-    public void closeClient(){
-        try {
-            client.close();
-            reader.close();
-            writer.close();
-        }catch (IOException e){
-            System.out.println(e.getStackTrace());
-        }
-    }
-    //--- Ricevo richieste dal client
-    @Override
-    public void run() {
-        boolean wait = true;
-        while(client.isConnected()&&wait) {
-            try {
-                String msg =  reader.readLine();
-                switch(msg){
-                    case "!quit":{
-                        closeClient();
-                        ClientHandeler.quit(this);
-                        break;
+    public void listenForMessage(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (socket.isConnected()){
+                    try {
+                        PacketClient p = (PacketClient) input.readObject();
+                        clientManager.broardCast(p.getMessage());
+                        
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
                     }
-                    /*
-                    case "!createRoom":{
-                        break;
-                    }
-                    case "!createRoom":{
-                        break;
-                    }
-                    case "!join":{
 
-                        break;
-                    }
-                    */
-
-                    default:
-                        if(player != null) {
-                            room.broadCast(player.nome+": "+msg);
-
-                        }
 
                 }
-
-            } catch (IOException e) {
-                closeClient();
             }
-        }
+        }).start();
     }
 
-    public void joinRoom(){
-
-    }
 }

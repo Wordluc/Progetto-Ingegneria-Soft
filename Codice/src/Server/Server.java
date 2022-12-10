@@ -6,40 +6,26 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Server {
-    protected ServerSocket serverSocket;
-    protected ArrayList<Client>client;
-    protected RoomManager roomManager;
-    //protected Room room;
-    protected ClientHandeler clientHandeler;
-
+    private ServerSocket serverSocket;
+    protected ArrayList<Client>clients;
+    private ClientManager clientManager;
     public Server(ServerSocket serverSocket){
-        this.serverSocket = serverSocket;
-        client = new ArrayList<>();
-        roomManager = new RoomManager();
-
-
-        clientHandeler = new ClientHandeler(this);
-        new Thread(clientHandeler).start();
-
+        this.serverSocket=serverSocket;
+        clients = new ArrayList<>();
+        clientManager = new ClientManager(this);
+        new Thread(clientManager).start();
     }
-    public void serverStart(){
-        //--- Attesa connesione client
-        while (!serverSocket.isClosed()){
-            try {
-                System.out.println("[SERVER] Waiting client connection");
-                Socket socket = serverSocket.accept();
-                System.out.println("[SERVER] Client connected");
+    public void serverStart() throws IOException {
+        while(!serverSocket.isClosed()){
+            System.out.println("[SERVER] Attesa connessione client");
+            Socket socket = serverSocket.accept();
+            System.out.println("[SERVER] Client connesso");
 
-                client.add(new Client(socket, this));
-                new Thread(client.get(client.size()-1)).start();
+            clients.add(new Client(socket, clientManager));
+            clients.get(clients.size()-1).listenForMessage();
 
-
-            }catch (IOException e){
-                e.printStackTrace();
-            }
         }
     }
-
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(2222);
