@@ -1,31 +1,105 @@
 package Server;
 
+import Game.Room;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ClientManager implements Runnable {
+public class ClientManager {
     private static Server server;
+    private Client client;
 
-    public ClientManager(Server server){
+    public ClientManager(Server server, Client client) {
+        this.client = client;
         this.server = server;
 
     }
-    public static void broardCast(String msg) throws IOException {
-        for(Client c : server.clients ) {
 
+    public static void broardCast(String msg) throws IOException {
+        for (Client c : server.clients) {
             c.sendMessage(msg);
         }
     }
-    @Override
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String msg = sc.nextLine();
-            try {
-                broardCast(msg);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
+    //--- Azioni stanze
+    public Room createRoom(String name) throws Exception {
+        Room room = new Room(name, client);
+        if (client.room != null)
+            return null;
+        if (server.roomManagers.addRoom(room)) {
+            client.room = room;
+            System.out.println("Stanza creata: " + room.getName() + " " + room.getCode());
+            return room;
+        } else {
+            System.out.println("Errore creazione stanza");
+            return null;
         }
     }
+
+    public Boolean removeRoom(Room room) {
+        if (server.roomManagers.removeRoom(room)) {
+            System.out.println("Stanza " + room.getName() + " " + room.getCode() + " rimossa");
+            return true;
+        }
+        System.out.println("Errore");
+        return false;
+    }
+
+    public Room joinRoom(String codice) {
+        Room room = server.roomManagers.findRoom(codice);
+        if (client.room != null)
+            return null;
+        if (room != null) {
+            if (room.addClient(client)) {
+                client.room = room;
+                client.room.broadCast("Join the chat");
+                return room;
+            }
+        }
+        return null;
+    }
+
+    public boolean quitRoom() {
+        if (client.room == null)
+            return false;
+        if (client.room.quitClient(client)) {
+            if (client.room.clients.size() >= 1) {
+                if (client.room != null)
+                    client.room.broadCast("Left the chat");
+            } else
+                removeRoom(client.room);
+            return true;
+        }
+        return false;
+    }
+
+    public String listRoom() {
+        ArrayList<Room> rooms = server.roomManagers.getRooms();
+        String list = "";
+        for (Room r : rooms) {
+            list += "Nome: " + r.getName() + " Codice: " + r.getCode() + "\n";
+        }
+        System.out.println(list);
+        return list;
+    }
+
+    public void clientInRoom() {
+        if (client.room != null) {
+            for (Client c : client.room.getAllUser())
+                System.out.println(c.socket);
+        }
+    }
+
+    public boolean removeClient(Client client) {
+        if (client.room.removeClient(this.client, client))
+            return true;
+        return false;
+    }
+
+    public void close() {
+        server.removeClient(client);
+    }
+
+
 }
