@@ -1,6 +1,5 @@
 package Server;
 
-import Game.Room;
 import Game.RoomManager;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(3333);
+        ServerSocket serverSocket = new ServerSocket(2222);
         Server server = new Server(serverSocket);
         server.serverStart();
     }

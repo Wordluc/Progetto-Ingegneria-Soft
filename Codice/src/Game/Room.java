@@ -1,9 +1,7 @@
 package Game;
 
-import Common.PacketClient;
 import Server.Client;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 

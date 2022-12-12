@@ -6,7 +6,6 @@ import Game.Room;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Client {
     Socket socket;
@@ -40,6 +39,16 @@ public class Client {
         }
     }
 
+    public void sendMessage(PacketServer p) {
+        try {
+
+            output.writeObject(p);
+        } catch (IOException e) {
+            System.out.println(e.getStackTrace());
+            closeClient();
+        }
+    }
+
     public void listenForMessage() {
         new Thread(new Runnable() {
             @Override
@@ -48,7 +57,7 @@ public class Client {
                     try {
                         PacketClient p = (PacketClient) input.readObject();
                         if (p.getCommand() != null) {
-                            System.out.println(p.toString());
+                            // System.out.println(p.toString());
                             action(p);
                         }
                     } catch (IOException e) {
@@ -70,6 +79,17 @@ public class Client {
             case "room": {
                 roomOption(p);
                 break;
+            }
+            case "test": {
+                System.out.println(p.toString());
+                sendMessage("!test Server -> b");
+                p = (PacketClient) input.readObject();
+                System.out.println(p.toString());
+                sendMessage("Server -> d");
+                p = (PacketClient) input.readObject();
+                System.out.println(p.toString());
+                sendMessage("Server -> f");
+
             }
 
         }
@@ -99,13 +119,18 @@ public class Client {
                 break;
             }
             case "userlist": {
-                clientManager.clientInRoom();
+                onReceiveclientInRoom();
                 break;
             }
             case "removeuser": {
                 onReceiveRemoveClient(p);
             }
         }
+    }
+
+    public void onReceiveclientInRoom() {
+        String s = clientManager.clientInRoom();
+        sendMessage(s);
     }
 
     private void onReceiveQuitRoom() {
@@ -121,8 +146,13 @@ public class Client {
         sendMessage(list);
     }
 
-    public void onReceiveRemoveClient(PacketClient p) {
-        clientManager.removeClient((Client) p.getObj());
+    public void onReceiveRemoveClient(PacketClient p) throws Exception {
+        if (clientManager.removeClient(p.getOption(1)))
+            sendMessage("Utente rimosso");
+        else
+            sendMessage("Errore");
+
+
     }
 
     private void onReceiveRemoveRoom() {
@@ -151,6 +181,7 @@ public class Client {
 
         String name = p.getOption(1);
         Room room = clientManager.createRoom(name);
+
         if (room != null) {
             sendMessage("Stanza creata: " + room.getName() + " " + room.getCode());
         } else

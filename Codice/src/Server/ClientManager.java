@@ -4,7 +4,6 @@ import Game.Room;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ClientManager {
     private static Server server;
@@ -84,18 +83,37 @@ public class ClientManager {
         return list;
     }
 
-    public void clientInRoom() {
+    public String clientInRoom() {
         if (client.room != null) {
-            for (Client c : client.room.getAllUser())
+            String s = "";
+            for (Client c : client.room.getAllUser()) {
                 System.out.println(c.socket);
+                s += c.socket + "\n";
+            }
+            return s;
         }
+        return null;
     }
 
-    public boolean removeClient(Client client) {
-        if (client.room.removeClient(this.client, client))
-            return true;
+    public boolean removeClient(String socket) {
+        if (client.room == null)
+            return false;
+        for (Client c : client.room.getAllUser()) {
+            int port = Integer.parseInt(socket);
+            if (c.socket.getPort() == port) {
+
+                if (client.room.removeClient(this.client, c)) {
+                    c.sendMessage("Sei stato rimosso");
+                    c.room = null;
+                    return true;
+                }
+                return false;
+            }
+
+        }
         return false;
     }
+
 
     public void close() {
         server.removeClient(client);
