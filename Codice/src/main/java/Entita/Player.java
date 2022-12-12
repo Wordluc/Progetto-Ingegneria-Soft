@@ -2,21 +2,23 @@ package Entita;
 
 import Mappa.GestoreMappa;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Player extends Pawn{
     public final String nome;
     private int posizione;
     public int posizioneAntecedente;
-    private List<String> steps;
+    private LinkedList<String> steps;
     public int iSteps;
 
     //--- private bool stato;
     //--- private int [][] posizione;
     //--- Pedina
-    public Player(String nomePlayer, int sizeMappa,String url) throws IOException {
-        super(url);
+    public Player(String nomePlayer,String url,int xPawn,int yPawn) throws IOException {
+        super(url,xPawn,yPawn);
 
 
         this.nome=nomePlayer;
@@ -47,10 +49,19 @@ public class Player extends Pawn{
     public int getPosizione(){
        return posizione;
     }
-    public void setStep(List<String>steps){
+    public void setStep(LinkedList<String>steps){
 
         this.steps=steps;
         iSteps=0;
+    }
+    public void setStep(List<String>steps,int i){
+        for(String d:steps) {
+            this.steps.add(i, d);
+            i++;
+        }
+    }
+    public void delStep(int i){
+        this.steps.remove(i);
     }
     public List<String> getSteps(){
         return steps;
@@ -79,7 +90,7 @@ public class Player extends Pawn{
 
     @Override
     public String toString() {
-        return "nome"+nome+",posizione"+getPosizione()+":"+getSteps();
+        return "nome"+nome+",posizione"+getPosizione()+":"+getSteps()+"i-esimostep"+iSteps;
 
     }
 }

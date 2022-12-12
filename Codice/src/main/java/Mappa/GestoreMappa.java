@@ -3,12 +3,12 @@ package Mappa;
 import Entita.Player;
 import GUI.GestoreGui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GestoreMappa extends GestoreEvento {
@@ -19,27 +19,24 @@ public class GestoreMappa extends GestoreEvento {
     public void draw(Graphics g, Player ps[]){
         for (int ic=0;ic<size;ic++)
             caselle[ic].paint(g);
-        for(int ip=0;ip<ps.length;ip++)
-            if(ps[ip].getPosizione()<size)
-              caselle[ps[ip].getPosizione()].drawPow(g,ps[ip].image,ip,ps);
-
-
-
-
-
-
+        for(int ip=0;ip<ps.length;ip++) {
+            if (ps[ip].getPosizione() < size){
+                int []pos=caselle[ps[ip].getPosizione()].getPos();
+                ps[ip].draw(g,pos[0],pos[1]);
+            }
+        }
     }
-    public List<String> generaSteps(int pCasella){
+    public LinkedList<String> generaSteps(int pCasella){
         if(pCasella<size) {
             if (!caselle[pCasella].vuota) {//casella non vuoto,genero evento
                 return super.generaSteps(pCasella);
             } else//evento movimento
             {
-                return Arrays.asList(new String[]{"movimento,1"});
+                return new LinkedList<String>(List.of(new String[]{"movimento,1"}));
             }
         }
         System.err.println("fuori mappa");
-        return Arrays.asList(new String[]{"finito"});
+        return new LinkedList<String>(List.of(new String[]{"finito"}));
     }
     public GestoreMappa(int size, String urlEventi, int mixCaselle) throws IOException {
         super(urlEventi);
@@ -47,7 +44,6 @@ public class GestoreMappa extends GestoreEvento {
         this.size=size;
         caselle=new Casella[size];//creo la matrice di caselle
         generaMappa();
-
     }
     private String[] genMatrix(int xmax,int ymax){
         String []pos=new String[xmax*ymax];

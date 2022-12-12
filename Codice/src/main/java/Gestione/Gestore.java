@@ -1,39 +1,49 @@
 package Gestione;
 
 import Entita.*;
+import GUI.SchermataPlayers;
 import Mappa.GestoreMappa;
 
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Gestore extends JPanel {
     private final GestoreMappa mappa;
     private final Player players[];
+    private final SchermataPlayers ScPlayer;
     private int Nplayer;
+    private boolean stato=true;
     private final Dado dado;
-    private JLabel labelsteps;
     private int iPlayer=0;//playeer attivo
-    public Gestore(GestoreMappa mappa, String[] nomi, String[] url, JLabel labSteps) throws IOException {
+    public Gestore(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
         this.mappa=mappa;
         this.dado=new Dado();
         this.Nplayer=nomi.length;
-        this.labelsteps=labSteps;
+        this.ScPlayer=new SchermataPlayers(nomi.length);
         players=new Player[Nplayer];
         for(int i=0;i<Nplayer;i++) {
-            players[i] = new Player(nomi[i], mappa.size,url[i]);
+            players[i] = new Player(nomi[i],url[i],(i%2==0?0:50),(i<2?0:50));
+            setStepsPlayers(players[i]);
         }
-
+        updateGPlayer();
+        ScPlayer.revalidate();
+        ScPlayer.repaint();
     }
-    public void setPlayers(String url){
-          players[iPlayer].setPawn(url);
-    }
-
     public void setStepsPlayers(Player player){//genero l'evento per il player
-        List<String> e=mappa.generaSteps(player.getPosizione());
+        LinkedList<String> e=mappa.generaSteps(player.getPosizione());
         player.setStep(e);
+    }
+    private void updateGPlayer(){
+        for(int i =0;i<players.length;i++)
+            if(i==iPlayer)
+                ScPlayer.setLabel(i,new String[]{"->Giocatore:"+players[i].nome, players[i].toString()});
+            else
+                ScPlayer.setLabel(i,new String[]{"Giocatore:"+players[i].nome, players[i].toString()});
     }
     private void loopEvento(Player player){
           String steps=player.getStep();
@@ -48,7 +58,7 @@ public class Gestore extends JPanel {
               nTurni=dado.faccia;
           else
               nTurni= Integer.parseInt(step[1]);//controllo per quante azioni effettuare l'evento step
-          player.setStep(mappa.multiEventi(nTurni-1,player));//nTurni-1 poichè la prima itarazione la sto gia facendo
+          mappa.multiEventi(nTurni-1,player);//nTurni-1 poichè la prima itarazione la sto gia facendo
           switch (step[0]){//seleziono evento da eseguire
               case "inizio":
                   player.setPosizione(0);
@@ -73,8 +83,28 @@ public class Gestore extends JPanel {
               case "stop"://non faccio niente
                   break;
               case "scambioPosizione":
-                  dado.lanciaDado();
-                  player.movimento(dado.faccia);
+                  int a;
+                  if(step[2].equals("Cu")) {
+                      do {
+                          Random random = new Random();
+                        a=random.nextInt(4);
+                      }while(a==iPlayer);//la pedina A con cui mi scambio deve essere diversa da A
+                      //scambio posizione
+                      int p=players[a].getPosizione();
+                      players[a].setPosizione(players[iPlayer].getPosizione());
+                      players[iPlayer].setPosizione(p);
+                  }else if(step[2].equals("Ct")){
+                      for (int i =0;i<4;i++) {
+                          do {
+                              Random random = new Random();
+                              a = random.nextInt(4);
+                          } while (a == i);//la pedina A con cui mi scambio deve essere diversa da A
+                          //scambio posizione
+                          int p=players[a].getPosizione();
+                          players[a].setPosizione(players[iPlayer].getPosizione());
+                          players[iPlayer].setPosizione(p);
+                      }
+                  }
                   break;
               case "sceltaPosNeg":
                   dado.lanciaDado();
@@ -96,59 +126,36 @@ public class Gestore extends JPanel {
                       player.movimento(-dado.faccia);
                   break;
           }
-
     }
-    public boolean turnoPLayer(){//turno del giocatore,true->sono arrivato alla fine
-        boolean blocco=false;
-        Player p=players[iPlayer];//player attivo
-
-        loopEvento(p);
-
-        List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
-        if(!p.getStep().equals("[tiroDado,1]")) {
-            iPlayer = incrIplayer();
-
-
-        }
-        labelsteps.setText(players[iPlayer].toString());
-            boolean s=p.incrIstep();
-
-        if(!p.getStep().equals("[stop,1]")) {
-            if (mappa.getStatusCasellaVuota(p.getPosizione())) {
-               if(!s)
-                   p.setStep(mappa.getDefaultSteps());
-            } else {
-                setStepsPlayers(p);
-                if (steps.get(0).equals("finito")) {
-                    return true;
+    public void turnoPLayer(){//turno del giocatore,true->sono arrivato alla fine
+        if(stato) {
+            Player p = players[iPlayer];//player attivo
+            loopEvento(p);
+            if (p.getPosizione() > mappa.size) {
+                stato = false;
+                return;
+            }
+            ScPlayer.setLabel(4, new String[]{"Dado:", String.valueOf(dado.faccia)});
+            List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
+            boolean prosStep = p.incrIstep();
+            if (!p.getStep().equals("stop,1")) {
+                if (!prosStep)
+                    p.setStep(mappa.getDefaultSteps());
+                if (!mappa.getStatusCasellaVuota(p.getPosizione())) {
+                    setStepsPlayers(p);
+                    ScPlayer.setLabel(iPlayer, new String[]{"Giocatore:" + players[iPlayer].nome, players[iPlayer].getSteps().toString()});
                 }
             }
+            if (!p.getStep().equals("tiroDado,1")) {
+                iPlayer = incrIplayer();
+            }
         }
-
-
-
-
-
+        updateGPlayer();
         revalidate();
         repaint();
-        return false;
-
     }
     public void paint(Graphics g) {
         mappa.draw(g,players);
-
-    }
-    public void loop(){
-        boolean r;
-       /* do {
-
-            if(turnoPLayer()) {
-                break;
-            }
-
-
-
-        }while(true);//vado avanti con il players[i],finche non finisco di eseguire gli eventi*/
     }
     public Player getPlayer(int i){
         return players[i];

@@ -9,26 +9,17 @@ import java.io.File;
 import java.io.IOException;
 
 public abstract class Pawn {
-    private String URL;
     public BufferedImage image;
-    public Pawn(String url) throws IOException {
-        System.out.println(url);
+    public int[]pos;
+    public Pawn(String url,int xPawn,int yPawn) throws IOException {
+        this.pos=new int[]{xPawn,yPawn};//posizione relativa(in pixel)
+        setURL(url);
+
+    }
+    public void draw(Graphics g,int x,int y){
+        g.drawImage(image,x+pos[0],y+pos[1],null);
+    }
+    public void setURL(String url) throws IOException {
         image= ImageIO.read(new File(url));
-
-    }
-    public void setPawn( String URL){
-        this.URL=URL;
-    }
-    public void draw(){
-
-    }
-    public void draw(Graphics g,int x, int y){
-        g.drawImage(image, x, y, null);
-    }
-    public String getURL(){
-        return URL;
-    }
-    public void setURL(String URL){
-        this.URL = URL;
     }
 }
