@@ -1,0 +1,3 @@
+Ogni evento è composto dall' evento e campi,gli eventi sono separati tra di loro con ; ;
+   [azione1,campo1,campo2;azione2,campo1,campo2..]
+Quando siamo in una casella vuota,l'evento è "movimento
