@@ -27,7 +27,7 @@ public class Casella extends JFrame{
     public void paint(Graphics g){
             g.drawImage(image, x*size, y*size, null);
     }
-    public int [] getPos(){
+    public int [] getPos(){//get posizione assoluta (pixel)
         return new int[]{x*size,y*size};
     }
 }

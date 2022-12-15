@@ -6,8 +6,8 @@ public class Dado {
     private static int max = 6;
     private static int min = 1;
     private static Random random;
-    public static int faccia;
-    private static String lastUtente;
+    protected static int faccia;
+    protected static String lastUtente;
     public Dado(){
         this(6,1);
         random= new Random();
@@ -20,7 +20,6 @@ public class Dado {
         return lastUtente;
     }
     public int lanciaDado(){
-
         faccia= random.nextInt((max+1)-min)+min;
         return faccia;
 

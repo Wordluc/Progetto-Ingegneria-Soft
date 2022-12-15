@@ -34,7 +34,7 @@ public class Gestore extends JPanel {
         ScPlayer.revalidate();
         ScPlayer.repaint();
     }
-    public void setStepsPlayers(Player player){//genero l'evento per il player
+    private void setStepsPlayers(Player player){//genero l'evento per il player
         LinkedList<String> e=mappa.generaSteps(player.getPosizione());
         player.setStep(e);
     }
@@ -131,7 +131,7 @@ public class Gestore extends JPanel {
         if(stato) {
             Player p = players[iPlayer];//player attivo
             loopEvento(p);
-            if (p.getPosizione() > mappa.size) {
+            if (p.getPosizione() >= mappa.size) {
                 stato = false;
                 return;
             }
@@ -148,6 +148,9 @@ public class Gestore extends JPanel {
             }
             if (!p.getStep().equals("tiroDado,1")) {
                 iPlayer = incrIplayer();
+                if(players[iPlayer].getStep().equals("stop,1")) {
+                    turnoPLayer();
+                }
             }
         }
         updateGPlayer();

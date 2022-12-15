@@ -80,7 +80,7 @@ public class Player extends Pawn{
             return false;
     }
     public boolean incrIstep(){//step iSteps-esimo eseguito
-        if(iSteps+1<steps.size()) {
+        if(iSteps<steps.size()) {
             iSteps+=1;
             return true;
         }
