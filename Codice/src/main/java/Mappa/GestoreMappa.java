@@ -14,7 +14,7 @@ import java.util.List;
 public class GestoreMappa extends GestoreEvento {
     public Casella caselle[];
 
-
+    private final String sprite[];
     public static int size;
     public void draw(Graphics g, Player ps[]){
         for (int ic=0;ic<size;ic++)
@@ -38,8 +38,9 @@ public class GestoreMappa extends GestoreEvento {
         System.err.println("fuori mappa");
         return new LinkedList<String>(List.of(new String[]{"finito"}));
     }
-    public GestoreMappa(int size, String urlEventi, int mixCaselle) throws IOException {
+    public GestoreMappa(int size, String urlEventi, int mixCaselle,String spriteVuoto,String spritePieno) throws IOException {
         super(urlEventi);
+        sprite=new String[]{spriteVuoto,spritePieno};
         this.mixCaselle=mixCaselle;//probabilità caselle nulle
         this.size=size;
         caselle=new Casella[size];//creo la matrice di caselle
@@ -78,8 +79,8 @@ public class GestoreMappa extends GestoreEvento {
     }
     public void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
         String[]s=genMatrix(size/5,5);
-        BufferedImage vuoto=GestoreGui.getImage("C:\\Users\\frang\\Desktop\\Java\\Progetto-Ingegneria-Soft\\Codice\\src\\main\\java\\vuota.png");
-        BufferedImage piena=GestoreGui.getImage("C:\\Users\\frang\\Desktop\\Java\\Progetto-Ingegneria-Soft\\Codice\\src\\main\\java\\piena.png");
+        BufferedImage vuoto=GestoreGui.getImage(sprite[0]);
+        BufferedImage piena=GestoreGui.getImage(sprite[1]);
         boolean stato;
         for (int i=0;i<size;i++) {
             stato = vuotaSiNo();

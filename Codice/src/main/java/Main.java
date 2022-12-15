@@ -12,13 +12,14 @@ public class Main {
         File directory = new File("./");
         System.out.println(directory.getAbsolutePath());
         j.setSize(650,600);
-        GestoreMappa m=new GestoreMappa(30,"resource\\Eventi.txt",2);
+        GestoreMappa m=new GestoreMappa(30,"resource\\Eventi.txt",2,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
 
         Gestore g=new Gestore(m, new String[]{"1", "2","3","4"},new String[]
                 {"resource\\sprite\\p1.png"
                 ,"resource\\sprite\\p2.png"
                 ,"resource\\sprite\\p3.png"
-                ,"resource\\sprite\\p4.png"});
+                ,"resource\\sprite\\p4.png"
+                });
 
         JButton b=new JButton("lancia");
         b.setSize(100,50);
