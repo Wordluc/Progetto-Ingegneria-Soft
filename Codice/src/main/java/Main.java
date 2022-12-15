@@ -9,8 +9,6 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
         JFrame j =new JFrame();
-        File directory = new File("./");
-        System.out.println(directory.getAbsolutePath());
         j.setSize(650,600);
         GestoreMappa m=new GestoreMappa(30,"resource\\Eventi.txt",2,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
 
@@ -21,7 +19,7 @@ public class Main {
                 ,"resource\\sprite\\p4.png"
                 });
 
-        JButton b=new JButton("lancia");
+        JButton b=new JButton("Lancia");
         b.setSize(100,50);
         j.setLayout(null);
 
