@@ -1,6 +1,7 @@
 package Gestione;
 
 import Entita.*;
+import GUI.SceltaPosNeg;
 import GUI.SchermataPlayers;
 import Mappa.GestoreMappa;
 
@@ -8,20 +9,25 @@ import Mappa.GestoreMappa;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class Gestore extends JPanel {
     private final GestoreMappa mappa;
-    private final Player players[];
+    private final Player[] players;
     private final SchermataPlayers ScPlayer;
+    private final SceltaPosNeg ScPosNeg;
     private int Nplayer;
-    private boolean stato=true;
+    private static boolean stato=true;
     private final Dado dado;
-    private int iPlayer=0;//playeer attivo
-    public Gestore(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
+    private static String risPoll="";
+    private static int iPlayer=0;//playeer attivo
+    private static Gestore me=null;
+    private Gestore(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
         this.mappa=mappa;
+        this.ScPosNeg=new SceltaPosNeg(nomi.length-1);
         this.dado=new Dado();
         this.Nplayer=nomi.length;
         this.ScPlayer=new SchermataPlayers(nomi.length);
@@ -33,6 +39,11 @@ public class Gestore extends JPanel {
         updateGPlayer();
         ScPlayer.revalidate();
         ScPlayer.repaint();
+    }
+    public static Gestore getInstance(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
+        if(me==null)
+            me=new Gestore(mappa,nomi,url);
+        return me;
     }
     private void setStepsPlayers(Player player){//genero l'evento per il player
         LinkedList<String> e=mappa.generaSteps(player.getPosizione());
@@ -107,8 +118,6 @@ public class Gestore extends JPanel {
                   }
                   break;
               case "sceltaPosNeg":
-                  dado.lanciaDado();
-                  player.movimento(Dado.faccia);
                   break;
               case "sceltaTutti":
                   dado.lanciaDado();
@@ -127,22 +136,41 @@ public class Gestore extends JPanel {
                   break;
           }
     }
+    public static void StopPLay(){
+         stato=!stato;
+    }
+    public static void setPoll(String s){
+         risPoll=s;
+    }
+    private List<String> getPlayerName(String elementR){//ritorno i nomi dei giocatori ,in caso tolgo elementR
+        List<String>r=new ArrayList<>();
+        for(int i=0;i<players.length;i++)
+            if(!players[i].nome.equals(elementR)){
+                r.add(players[i].nome);
+            }
+        return r;
+    }
     public void turnoPLayer(){//turno del giocatore,true->sono arrivato alla fine
+
         if(stato) {
             Player p = players[iPlayer];//player attivo
             loopEvento(p);
             if (p.getPosizione() >= mappa.size) {
-                stato = false;
+                StopPLay();
                 return;
             }
             ScPlayer.setLabel(4, new String[]{"Dado:", String.valueOf(dado.faccia)});
-            List<String> steps = mappa.generaSteps(p.getPosizione());//genero un altro step
             boolean prosStep = p.incrIstep();
             if (!p.getStep().equals("stop,1")) {
                 if (!prosStep)
                     p.setStep(mappa.getDefaultSteps());
                 if (!mappa.getStatusCasellaVuota(p.getPosizione())) {
-                    setStepsPlayers(p);
+                    setStepsPlayers(p);//genera altro step
+                    if(p.getStep().equals("sceltaPosNeg,1")) {
+                        StopPLay();
+                        ScPosNeg.start(getPlayerName(players[iPlayer].nome));
+                        return ;
+                    }
                     ScPlayer.setLabel(iPlayer, new String[]{"Giocatore:" + players[iPlayer].nome, players[iPlayer].getSteps().toString()});
                 }
             }
@@ -153,6 +181,13 @@ public class Gestore extends JPanel {
                 }
             }
         }
+        if(!risPoll.equals(""))//gestione eventi scelta
+            if(risPoll.split(":")[0].equals("Pos")){
+                float v=Float.valueOf(risPoll.split(":")[1]);
+                players[iPlayer].setStep(mappa.getStepPosNeg(v>=0.5?"+":"-"));//setto step positivo/negativo
+                StopPLay();//faccio ripartire la partita
+                risPoll="";
+            }
         updateGPlayer();
         revalidate();
         repaint();

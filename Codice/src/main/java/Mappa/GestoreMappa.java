@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GestoreMappa extends GestoreEvento {
+    private static
+    GestoreMappa me=null;
     public Casella caselle[];
 
     private final String sprite[];
@@ -38,14 +40,25 @@ public class GestoreMappa extends GestoreEvento {
         System.err.println("fuori mappa");
         return new LinkedList<String>(List.of(new String[]{"finito"}));
     }
-    public GestoreMappa(int size, String urlEventi, int mixCaselle,String spriteVuoto,String spritePieno) throws IOException {
+
+    private GestoreMappa(int size, String urlEventi, int mixCaselle,String spriteVuoto,String spritePieno) throws IOException {
         super(urlEventi);
         sprite=new String[]{spriteVuoto,spritePieno};
         this.mixCaselle=mixCaselle;//probabilità caselle nulle
         this.size=size;
         caselle=new Casella[size];//creo la matrice di caselle
         generaMappa();
+
     }
+    public static GestoreMappa getInstance(int size, String urlEventi, int mixCaselle,String spriteVuoto,String spritePieno) throws IOException {
+        if(me==null)
+            me=new GestoreMappa(size,urlEventi,mixCaselle,spriteVuoto,spritePieno);
+        return me;
+    }
+    public static GestoreMappa getInstance(){
+            return me;
+    }
+
     private String[] genMatrix(int xmax,int ymax){
         String []pos=new String[xmax*ymax];
         int i=0;

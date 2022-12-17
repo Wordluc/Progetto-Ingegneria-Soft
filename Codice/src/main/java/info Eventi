@@ -1,3 +1,4 @@
 Ogni evento è composto dall' evento e campi,gli eventi sono separati tra di loro con ; ;
    azione1,#turni,campo2;azione2,#turni,campo2..
 Quando siamo in una casella vuota,l'evento è "movimento,1"
+Gli eventi con: '-' sono negativi quelli con '+' sono positivi

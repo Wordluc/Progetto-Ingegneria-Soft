@@ -34,6 +34,18 @@ public abstract class GestoreEvento {
         return r;
 
     }
+    public LinkedList<String> getStepPosNeg(String t){
+        String type="";
+        String step="";
+        do{
+            Random random = new Random();
+            int i = random.nextInt(Nrighe);
+            i = i % 2 == 0 ? i : i - 1;
+            step=lines.get(i + 1).substring(1,lines.get(i + 1).length());
+            type=lines.get(i + 1).substring(0,1);
+        }while(!type.equals(t));
+        return new LinkedList<String>(List.of(step.split(";")));
+    }
     protected boolean vuotaSiNo(){//mixCaselle>>0 ->piu caselle con eventi
         Random random=new Random();
         if(random.nextInt(mixCaselle) != 0) {
@@ -48,6 +60,7 @@ public abstract class GestoreEvento {
         Random random = new Random();
         int i = random.nextInt(Nrighe);
         i = i % 2 == 0 ? i : i - 1;
-        return new LinkedList<String>(List.of(lines.get(i + 1).split(";")));
+        String step=lines.get(i + 1).substring(1,lines.get(i + 1).length());
+        return new LinkedList<String>(List.of(step.split(";")));
     }
 }
