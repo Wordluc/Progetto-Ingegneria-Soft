@@ -11,18 +11,18 @@
 
 ## Organizzazione del progetto:
   Abbiamo iNIZIATO strutturando il nostro lavoro attraverso dei meeting online/presenza in modo da tracciare una linea generale sul da farsi.  <br> 
-  La documentazione riguarda sia la fase inziale sia la fase di sviluppo usando i vari diagrammi messi a disposizione da UML,dopo tutto ciò siamo partiti con la fase di progettazione/implementazione. <br> 
+  La documentazione riguarda sia la fase inziale sia la fase di sviluppo usando i vari diagrammi messi a disposizione da UML,dopo tutto ciò siamo partiti con la fase     di progettazione/implementazione. <br> 
   In particolare, il team si incontra settimanalmente per analizzare il lavoro svolto dall'ultimo meet e pianificare le attività future,  <br> 
   tracciando i task come issue su GitHub in modo che ogni persona del team sia al corrente di cosa stiano facendo gli altri.  <br> 
 
 ## Standard,linee guida e procedure:
-  Alla fine di ogni sprint bisogna creare un report in cui specificare gli obiettivi portati a termine, decisi all'interno dello sprint backlog. <br> 
+  Alla fine di ogni sprint bisogna creare un report in cui specificare gli obiettivi portati a termine, decisi all'interno dello sprint backlog.
 
 ## Attività di gestione:
-    Abbiamo usato il paradigma Capo squadra programmatore in cui : <br> 
-       capo programmatore:Luca Frangiamore <br> 
-       Assistente campo:Gianluigi Serra <br> 
-       Bibliotecaria:Greta Fachinetti <br> 
+    Abbiamo usato il paradigma Capo squadra programmatore in cui :  
+       capo programmatore:Luca Frangiamore 
+       Assistente campo:Gianluigi Serra  
+       Bibliotecaria:Greta Fachinetti 
     
 ## Rischi:
   Nel nostro caso il principale rischio è la gestione grafica e l’organizzazione interna del team. <br> 
