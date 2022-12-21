@@ -1,6 +1,5 @@
 package Entita;
 
-import GUI.GestoreGui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

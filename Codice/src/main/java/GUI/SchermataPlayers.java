@@ -1,8 +1,9 @@
 package GUI;
 
 import javax.swing.*;
-
-public class SchermataPlayers extends JFrame {
+import java.util.Observable;
+import java.util.Observer;
+public class SchermataPlayers extends JFrame  {
     JLabel label[][];
 
     public SchermataPlayers(int n){
@@ -32,4 +33,6 @@ public class SchermataPlayers extends JFrame {
     public boolean votaSceltaPosNeg(){
          return true;
     }
+
+
 }

@@ -1,11 +1,8 @@
 package Gestione;
-
 import Entita.*;
 import GUI.SceltaPosNeg;
 import GUI.SchermataPlayers;
 import Mappa.GestoreMappa;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -51,12 +48,14 @@ public class Gestore extends JPanel {
     }
     private void updateGPlayer(){
         for(int i =0;i<players.length;i++)
-            if(i==iPlayer)
-                ScPlayer.setLabel(i,new String[]{"->Giocatore:"+players[i].nome, players[i].toString()});
-            else
-                ScPlayer.setLabel(i,new String[]{"Giocatore:"+players[i].nome, players[i].toString()});
+            if(i==iPlayer) {
+               ScPlayer.setLabel(i, new String[]{"->Giocatore:" + players[i].nome, players[i].toString()});
+            }else {
+                ScPlayer.setLabel(i, new String[]{"Giocatore:" + players[i].nome, players[i].toString()});
+            }
     }
     private void loopEvento(Player player){
+
           String steps=player.getStep();
           if(steps.equals("null")){
               player.movimento(dado.faccia);
@@ -175,19 +174,26 @@ public class Gestore extends JPanel {
                 }
             }
             if (!p.getStep().equals("tiroDado,1")) {
-                iPlayer = incrIplayer();
-                if(players[iPlayer].getStep().equals("stop,1")) {
-                    turnoPLayer();
-                }
+               upPlayer();
             }
         }
         if(!risPoll.equals(""))//gestione eventi scelta
             if(risPoll.split(":")[0].equals("Pos")){
                 float v=Float.valueOf(risPoll.split(":")[1]);
-                players[iPlayer].setStep(mappa.getStepPosNeg(v>=0.5?"+":"-"));//setto step positivo/negativo
+                players[iPlayer].setStep(mappa.getStepPosNeg(v==0?"+":"-"));//setto step positivo/negativo
                 StopPLay();//faccio ripartire la partita
                 risPoll="";
+                upPlayer();
             }
+      guiUpdate();
+    }
+    private void upPlayer(){
+        iPlayer = incrIplayer();
+        if(players[iPlayer].getStep().equals("stop,1")) {
+            turnoPLayer();
+        }
+    }
+    private void guiUpdate(){
         updateGPlayer();
         revalidate();
         repaint();
@@ -214,5 +220,4 @@ public class Gestore extends JPanel {
         }
         return i;
     }
-
 }

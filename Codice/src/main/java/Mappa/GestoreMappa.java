@@ -1,17 +1,18 @@
 package Mappa;
 
-import Entita.Player;
-import GUI.GestoreGui;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import Entita.Player;
 
+import javax.imageio.ImageIO;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GestoreMappa extends GestoreEvento {
+public class GestoreMappa extends CreazioneEventi {
     private static
     GestoreMappa me=null;
     public Casella caselle[];
@@ -92,8 +93,8 @@ public class GestoreMappa extends GestoreEvento {
     }
     public void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
         String[]s=genMatrix(size/5,5);
-        BufferedImage vuoto=GestoreGui.getImage(sprite[0]);
-        BufferedImage piena=GestoreGui.getImage(sprite[1]);
+        BufferedImage vuoto= ImageIO.read(new File(sprite[0]));
+        BufferedImage piena=ImageIO.read(new File(sprite[1]));
         boolean stato;
         for (int i=0;i<size;i++) {
             stato = vuotaSiNo();

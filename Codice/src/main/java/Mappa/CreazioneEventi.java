@@ -7,11 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public abstract class GestoreEvento {
+public abstract class CreazioneEventi {
     protected int mixCaselle;//mixCaselle>>0 ->piu caselle con eventi ho
     protected int Nrighe ;
     protected List<String> lines;
-    public GestoreEvento(String urlEventi) throws IOException {
+    public CreazioneEventi(String urlEventi) throws IOException {
         lines = Files.readAllLines(Paths.get(urlEventi));
         Nrighe = lines.size();
     }
