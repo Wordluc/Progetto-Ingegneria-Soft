@@ -41,17 +41,17 @@ public abstract class CreazioneEventi {
             Random random = new Random();
             int i = random.nextInt(Nrighe);
             i = i % 2 == 0 ? i : i - 1;
-            step=lines.get(i + 1).substring(1,lines.get(i + 1).length());
+            step=lines.get(i + 1).substring(1);
             type=lines.get(i + 1).substring(0,1);
-        }while(!type.equals(t));
+        }while(!type.equals(t));//continuo a cercare un step con il tipo che voglio
         return new LinkedList<String>(List.of(step.split(";")));
     }
-    protected boolean vuotaSiNo(){//mixCaselle>>0 ->piu caselle con eventi
+    protected TypeCasella GetTypeCasella(){//mixCaselle>>0 ->piu caselle con eventi
         Random random=new Random();
-        if(random.nextInt(mixCaselle) != 0) {
-            return false;
+        if(random.nextInt(100+1)<mixCaselle) {//se esce minore di mixCaselle ->casella piena
+            return TypeCasella.piena;
         }
-        return true;
+        return TypeCasella.vuota;
     }
     public LinkedList<String> getDefaultSteps(){
         return new LinkedList<String>(List.of(new String[]{"movimento,1"}));

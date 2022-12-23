@@ -29,9 +29,10 @@ public class GestoreMappa extends CreazioneEventi {
             }
         }
     }
+
     public LinkedList<String> generaSteps(int pCasella){
         if(pCasella<size) {
-            if (!caselle[pCasella].vuota) {//casella non vuoto,genero evento
+            if (caselle[pCasella].getTypeC()== TypeCasella.piena) {//casella non vuoto,genero evento
                 return super.generaSteps(pCasella);
             } else//evento movimento
             {
@@ -84,22 +85,19 @@ public class GestoreMappa extends CreazioneEventi {
         }
         return pos;
     }
-    public boolean getStatusCasellaVuota(int p){
-        try {
-            return caselle[p].vuota;
-        }catch (Exception e) {
-            return false;
-        }
+    public TypeCasella getStatusCasellaVuota(int p){
+            return caselle[p].getTypeC();
     }
     public void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
         String[]s=genMatrix(size/5,5);
         BufferedImage vuoto= ImageIO.read(new File(sprite[0]));
         BufferedImage piena=ImageIO.read(new File(sprite[1]));
-        boolean stato;
+        TypeCasella stato=TypeCasella.piena;
+        System.out.println(caselle.length+"fff"+size);
         for (int i=0;i<size;i++) {
-            stato = vuotaSiNo();
+            stato =GetTypeCasella();
 
-            if(stato)
+            if(stato== TypeCasella.vuota)
                 caselle[i] = new Casella(i,stato,Integer.parseInt(s[i].split(",")[0]),Integer.parseInt(s[i].split(",")[1]),vuoto);
             else
                 caselle[i] = new Casella(i,stato,Integer.parseInt(s[i].split(",")[0]),Integer.parseInt(s[i].split(",")[1]),piena);

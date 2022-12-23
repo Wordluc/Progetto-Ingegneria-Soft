@@ -1,20 +1,22 @@
 package GUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SceltaTutti extends Scelta{
     private List<String> steps;
     public SceltaTutti(int n){
-        super(n,3);
+        super(n+4,3);
     }
 
-    public void start(List<String>nomi,List<String>steps){
+    public void start(List<String>nomi, ArrayList<String> steps){
         this.start(nomi);
         this.steps=steps;
-        setButtonText(0,"1");
-        setButtonText(1,"2");
-        setButtonText(3,"3");
+        for(int i=0;i<nomi.size();i++)
+           setButton(i,""+i);
+
+        steps.add(0,"");
+        steps.add(1,"Le scelte sono:");
+        makeGui(steps,200);
     }
 }

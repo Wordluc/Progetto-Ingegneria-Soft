@@ -6,28 +6,37 @@ import java.awt.image.BufferedImage;
 
 public class Casella extends JFrame{
     public BufferedImage image;
-    public Canvas canvas;
     public int pos;
     public int x;
     public int y;
     private int size;
-    public boolean vuota;
-    public Casella(int pos,boolean vuota,int x,int y,BufferedImage image) {
+    private TypeCasella type;
+    private int idPlayer;
+    public Casella(int pos, TypeCasella type, int x, int y, BufferedImage image) {
         this.pos=pos;
-        this.vuota = vuota;
+        this.type = type;
         this.x=x;
         this.y=y;
         this.image=image;
         size=image.getHeight();
     }
+    public void setIdPlayer(int id){
+        idPlayer=id;
+    }
+    public int getIdPlayer(){
+        return idPlayer;
+    }
     @Override
     public String toString() {
-        return x+","+y+pos+"vuota:"+ vuota;
+        return x+","+y+pos+"vuota:"+ type;
     }
     public void paint(Graphics g){
             g.drawImage(image, x*size, y*size, null);
     }
     public int [] getPos(){//get posizione assoluta (pixel)
         return new int[]{x*size,y*size};
+    }
+    public TypeCasella getTypeC(){
+        return type;
     }
 }

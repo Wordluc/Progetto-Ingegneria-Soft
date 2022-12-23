@@ -37,7 +37,6 @@ public class Player extends Pawn{
     public void setPosizione(int i){
         posizioneAntecedente = posizione;
         if(i<GestoreMappa.size) {
-
               if(i>=0)
                   posizione = i;
               else

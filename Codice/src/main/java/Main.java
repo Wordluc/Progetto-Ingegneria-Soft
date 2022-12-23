@@ -1,3 +1,4 @@
+import GUI.SceltaTutti;
 import GUI.SchermataPlayers;
 import Gestione.Gestore;
 import Mappa.GestoreMappa;
@@ -6,13 +7,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
         JFrame j =new JFrame();
         j.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         j.setSize(650,600);
-        GestoreMappa m=GestoreMappa.getInstance(30,"resource\\Eventi.txt",2,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
+        GestoreMappa m=GestoreMappa.getInstance(30,"resource\\Eventi.txt",60,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
 
         Gestore g=Gestore.getInstance(m, new String[]{"1", "2","3","4"},new String[]
                 {"resource\\sprite\\p1.png"

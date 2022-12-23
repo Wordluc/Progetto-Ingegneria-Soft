@@ -24,7 +24,4 @@ public class Dado {
         return faccia;
 
     }
-    public static int getDado(){
-        return faccia;
-    }
 }
