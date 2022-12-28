@@ -17,7 +17,7 @@ public class Main {
         JFrame j =new JFrame();
         j.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         j.setSize(650,600);
-        GestoreMappa m=GestoreMappa.getInstance(30,"resource\\Eventi.txt",60,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
+        GestoreMappa m=GestoreMappa.getInstance(30,"resource\\Eventi.txt",20,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
 
         Gestore g=Gestore.getInstance(m, new String[]{"1", "2","3","4"},new String[]
                 {"resource\\sprite\\p1.png"

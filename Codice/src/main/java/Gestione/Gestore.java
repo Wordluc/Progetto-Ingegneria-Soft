@@ -1,6 +1,7 @@
 package Gestione;
 import Entita.*;
 import GUI.SceltaPosNeg;
+import GUI.SceltaTutti;
 import GUI.SchermataPlayers;
 import Mappa.GestoreMappa;
 import Mappa.TypeCasella;
@@ -21,16 +22,19 @@ public class Gestore extends JPanel {
     private final Dado dado;
     private static int iPlayer=0;//playeer attivo
     private static Gestore me=null;
+    private final SceltaTutti ScTot;
+
     private Gestore(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
         this.mappa=mappa;
         this.ScPosNeg=new SceltaPosNeg(nomi.length-1);
+        this.ScTot=new SceltaTutti(nomi.length-1);
         this.dado=new Dado();
         this.Nplayer=nomi.length;
         this.ScPlayer=new SchermataPlayers(nomi.length);
         players=new Player[Nplayer];
         for(int i=0;i<Nplayer;i++) {
             players[i] = new Player(nomi[i],url[i],(i%2==0?0:50),(i<2?0:50));
-            setStepsPlayers(players[i]);
+            newStepPlayer(players[i]);
         }
         updateGPlayer();
         ScPlayer.revalidate();
@@ -41,45 +45,34 @@ public class Gestore extends JPanel {
             me=new Gestore(mappa,nomi,url);
         return me;
     }
-    private void setStepsPlayers(Player player){//genero l'evento per il player
-        LinkedList<String> e=mappa.generaSteps(player.getPosizione());
-        player.setStep(e);
+    private void newStepPlayer(Player player){//genero l'evento per il player
+        resStep r=mappa.generaSteps(player.getPosizione());
+        player.setStep(r);
     }
     private void updateGPlayer(){
         for(int i =0;i<players.length;i++)
             if(i==iPlayer) {
-               ScPlayer.setLabel(i, new String[]{"->Giocatore:" + players[i].nome, players[i].toString()});
+               ScPlayer.setLabel(i, new String[]{"->Giocatore:" + players[i].nome, players[i].getStep().getDesc()});
+                players[iPlayer].getStep().setDesc(players[iPlayer].getStep().getDesc().replace("'n'", ""+(dado.faccia-1)));
+
             }else {
-                ScPlayer.setLabel(i, new String[]{"Giocatore:" + players[i].nome, players[i].toString()});
+                ScPlayer.setLabel(i, new String[]{"Giocatore:" + players[i].nome, players[i].getStep().getDesc()});
             }
     }
-    private List<List<Integer>> getPosizioniP(){
-        List<List<Integer>> r = new LinkedList<>();
-        r.add(0,new LinkedList<Integer>());//salvo il nome del player
-        r.add(1,new LinkedList<Integer>());//salvo la posizione
-        for(int i=0;i<players.length;i++){
-            r.get(0).add(i);
-            r.get(1).add(players[i].getPosizione());
-        }
-        //prova implementazione scambio giocatori in senso antiorario
-        List<Integer>copia=List.copyOf(r.get(1));
-        List<Integer>player=List.copyOf(r.get(0));
-        Collections.sort(copia);
-        List<Integer> test=new LinkedList<>();
-        for(int i=0;i<copia.size();i++){
-            for(int ip=0;i<player.size();i++){
-                if(copia.get(i)==players[ip].getPosizione())
-                    test.add(ip);
-                    break;
-            }
-        }
+    private void movAntOrario() {
+        List<Player> playersList = Arrays.asList(players.clone());
+        Collections.sort(playersList);
 
-        return r;
+        int pFin = playersList.get(playersList.size()-1).getPosizione();
+        for (int i = playersList.size()-1; i > 0; i--) {
+            playersList.get(i).setPosizione(playersList.get(i - 1).getPosizione());
+
+        }
+        playersList.get(0).setPosizione(pFin);
     }
-
     private boolean loopEvento(Player player){//true->continua;false->interrompi turno
 
-          String steps=player.getStep();
+          String steps=player.getCurrentStep();
           if(steps.equals("null")){
               player.movimento(dado.faccia);
               return true;
@@ -91,8 +84,10 @@ public class Gestore extends JPanel {
               nTurni=dado.faccia;
           else
               nTurni= Integer.parseInt(step[1]);//controllo per quante azioni effettuare l'evento step
-          mappa.multiEventi(nTurni-1,player);//nTurni-1 poichè la prima itarazione la sto gia facendo
-          switch (step[0]){//seleziono evento da eseguire
+          List<String> newr=mappa.multiEventi(nTurni-1,player);//nTurni-1 poichè la prima itarazione la sto gia facendo
+          player.delStep(player.iSteps);
+          player.setStep(newr,player.iSteps);
+        switch (step[0]){//seleziono evento da eseguire
               case "inizio":
                   player.setPosizione(0);
                   break;
@@ -137,6 +132,9 @@ public class Gestore extends JPanel {
                           players[a].setPosizione(players[iPlayer].getPosizione());
                           players[iPlayer].setPosizione(p);
                       }
+
+                  }else if(step[2].equals("-1")){
+                      movAntOrario();
                   }
                   break;
               case "sceltaPosNeg":
@@ -144,9 +142,13 @@ public class Gestore extends JPanel {
                       ScPosNeg.start(getPlayerName(players[iPlayer].nome));
                       return false;
               case "sceltaTutti":
-                  dado.lanciaDado();
-                  player.movimento(Dado.faccia);
-                  break;
+                  StopPLay();
+                  ArrayList <resStep> r=new ArrayList<>();
+                  for(int i=0;i<3;i++){
+                      r.add(mappa.generaSteps());
+                  }
+                  ScTot.start(getPlayerName(players[iPlayer].nome),r);
+                  return false;
               case "movimentoTurnoPrec":
                   dado.lanciaDado();
                   player.setPosizione(player.posizioneAntecedente);
@@ -173,41 +175,46 @@ public class Gestore extends JPanel {
         return r;
     }
     public void turnoPLayer(){//turno del giocatore,true->sono arrivato alla fine
-
         if(stato) {
             Player p = players[iPlayer];//player attivo
             if(!loopEvento(p))
                 return;
             if (p.getPosizione() >= mappa.size) {
                 StopPLay();
+                JFrame fine=new JFrame();
+                fine.setSize(50,30);
+                fine.add(new JLabel("Vincitore:"+players[iPlayer].nome));
                 return;
             }
             ScPlayer.setLabel(4, new String[]{"Dado:", String.valueOf(dado.faccia)});
             boolean prosStep = p.incrIstep();
-            if (!p.getStep().equals("stop,1")) {
+            if (!p.getCurrentStep().equals("stop,1")) {
                 if (!prosStep)
                     p.setStep(mappa.getDefaultSteps());
                 if (mappa.getStatusCasellaVuota(p.getPosizione())== TypeCasella.piena) {
-                    setStepsPlayers(p);//genera altro step
-
-                    ScPlayer.setLabel(iPlayer, new String[]{"Giocatore:" + players[iPlayer].nome, players[iPlayer].getSteps().toString()});
+                    newStepPlayer(p);//genera altro step
                 }
             }
-            if (!p.getStep().equals("tiroDado,1")) {
+            if (!p.getCurrentStep().equals("tiroDado,1")) {
                upPlayer();
             }
         }
-        int outC=ScPosNeg.getOutcome();
-        if(outC!=-1){//gestione eventi scelta
-                players[iPlayer].setStep(mappa.getStepPosNeg(outC==0?"+":"-"));//setto step positivo/negativo
+        int outPN=ScPosNeg.getOutcome();
+        int outT=ScTot.getOutcome();
+        if(outPN!=-1){//gestione eventi scelta
+                players[iPlayer].setStep(mappa.getStepPosNeg(outPN==0?"+":"-"));//setto step positivo/negativo
                 StopPLay();//faccio ripartire la partita
                 upPlayer();
+        }else if(outT!=-1){
+            players[iPlayer].setStep(ScTot.getStep(outT));
+            StopPLay();//faccio ripartire la partita
+            upPlayer();
         }
       guiUpdate();
     }
     private void upPlayer(){
         iPlayer = incrIplayer();
-        if(players[iPlayer].getStep().equals("stop,1")) {
+        if(players[iPlayer].getCurrentStep().equals("stop,1")) {
             turnoPLayer();
         }
     }

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Scelta extends JFrame{
+    protected List<String> otherT;
     protected List<String> nomi;
     protected JLabel label[];
     protected JButton buttons[];
@@ -14,40 +15,55 @@ public class Scelta extends JFrame{
     protected float voti;
     private int outCome=-1;
 
-     Scelta(int n,int nB){
+     Scelta(int nL,int nB){
         voti=0;
-        label=new JLabel[n];
+        label=new JLabel[nL];
         setLayout(null);
         buttons=new JButton[nB];
         for(int i=0;i<nB;i++) {
             buttons[i] = new JButton();
             buttons[i].setSize(100, 50);
+            add((buttons[i]));
         }
+         for (int i =0;i<nL;i++){
+             label[i]=new JLabel();
+             label[i].setSize(400,20);
+             add(label[i]);
+         }
     }
     public void start(List<String> nomi){
         outCome=-1;
         iPlayerVoting=0;
-        this.nomi=nomi;
-        makeGui(nomi,0);
-        setButtonPosition(0);
+        this.nomi =nomi;
+        setButtonsPosition(0);
         setVisible(true);
-        revalidate();
-        repaint();
+        setEnabled(true);
+        voti=0;
     }
 
-    protected void makeGui(List<String>nomi,int py){
-        for (int i =0;i<nomi.size();i++){
-            label[i]=new JLabel(nomi.get(i));
-            label[i].setSize(400,20);
-            label[i].setLocation(0,i*60+20+py);
-            add(label[i]);
-        }
+    protected void makeGui(List<String>testi,int py,String tipo){
+         if(tipo.equals("player")) {
+             for (int i = 0; i < testi.size(); i++) {
+                 label[i].setText(testi.get(i));
+                 label[i].setLocation(0, i * 60 + 20 + py);
+
+             }
+         }else
+             for (int i = nomi.size(); i < nomi.size()+testi.size(); i++) {
+                 System.out.println(testi.get(i- nomi.size()));
+                 label[i].setText(testi.get(i-nomi.size()));
+                 label[i].setLocation(0, i * 60 + 20 + py);
+
+             }
+
     }
-    protected void setButtonPosition(int iP){
+    protected void setButtonsPosition(int iP){
         for(int i=0;i<buttons.length;i++){
             buttons[i].setLocation(100+i*110,iP*60+10);
-            add((buttons[i]));
+
         }
+        revalidate();
+        repaint();
 
     }
     protected void setButton(int i, String name){
@@ -62,14 +78,16 @@ public class Scelta extends JFrame{
     }
 
     private void poll(int voto){
-        if(iPlayerVoting<nomi.size()) {
+         System.out.println(iPlayerVoting);
+        if(iPlayerVoting< nomi.size()) {
             voti=voti+voto;
             iPlayerVoting++;
-            setButtonPosition(iPlayerVoting);
+            setButtonsPosition(iPlayerVoting);
         }
-        if(iPlayerVoting==nomi.size()){
-            outCome=(int)Math.floor(voti/nomi.size());
+        if(iPlayerVoting== nomi.size()){
+            outCome=(int)Math.floor(voti/ nomi.size());
             setVisible(false);
+            setEnabled(false);
         }
     }
     public int getOutcome(){

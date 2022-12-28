@@ -20,7 +20,7 @@ public class Dado {
         return lastUtente;
     }
     public int lanciaDado(){
-        faccia= random.nextInt((max+1)-min)+min;
+        faccia= random.nextInt(max)+min;
         return faccia;
 
     }

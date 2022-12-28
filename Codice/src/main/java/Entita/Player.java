@@ -1,17 +1,16 @@
 package Entita;
 
+import Gestione.resStep;
 import Mappa.GestoreMappa;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
-public class Player extends Pawn{
+public class Player extends Pawn implements Comparable<Player> {
     public final String nome;
     private int posizione;
     public int posizioneAntecedente;
-    private LinkedList<String> steps;
+    private resStep steps;
     public int iSteps;
 
     //--- private bool stato;
@@ -48,38 +47,38 @@ public class Player extends Pawn{
     public int getPosizione(){
        return posizione;
     }
-    public void setStep(LinkedList<String>steps){
-
+    public void setStep(resStep steps){
         this.steps=steps;
         iSteps=0;
     }
-    public void setStep(List<String>steps,int i){
-        for(String d:steps) {
-            this.steps.add(i, d);
+    public void setStep(List<String>stepsIn,int i){
+        for(String stepIn:stepsIn) {
+            this.steps.addStep(i, stepIn);
             i++;
         }
     }
     public void delStep(int i){
-        this.steps.remove(i);
+        this.steps.delStep(i);
     }
     public List<String> getSteps(){
-        return steps;
-    }//prendo tutti gli steps
-    public String getStep(){
-        if(iSteps<steps.size())
-           return steps.get(iSteps);
+        return steps.getStep();
+    }
+    public String getCurrentStep(){
+        if(iSteps<steps.getSize())
+           return steps.getStep(iSteps);
         System.err.println("fuori range,steps");
         return "null";
     }
+    public resStep getStep(){return steps;}
     public boolean incrIstep(int i){//step i-esimo eseguito
-        if(i<steps.size()) {
+        if(i<steps.getSize()) {
             iSteps=i;
             return true;
         }else
             return false;
     }
     public boolean incrIstep(){//step iSteps-esimo eseguito
-        if(iSteps<steps.size()) {
+        if(iSteps<steps.getSize()) {
             iSteps+=1;
             return true;
         }
@@ -91,5 +90,12 @@ public class Player extends Pawn{
     public String toString() {
         return "nome"+nome+",posizione"+getPosizione()+":"+getSteps()+"i-esimostep"+iSteps;
 
+    }
+    public int compareTo(Player u) {
+        if(getPosizione()>u.getPosizione())
+            return 1;
+        else if(getPosizione()<u.getPosizione())
+            return -1;
+        return 0;
     }
 }

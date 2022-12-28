@@ -1,6 +1,7 @@
 package Mappa;
 
 import Entita.Player;
+import Gestione.resStep;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public abstract class CreazioneEventi {
-    protected int mixCaselle;//mixCaselle>>0 ->piu caselle con eventi ho
+
+    protected int ProbPiena;//mixCaselle>>0 ->piu caselle con eventi ho
     protected int Nrighe ;
     protected List<String> lines;
     public CreazioneEventi(String urlEventi) throws IOException {
@@ -17,7 +19,7 @@ public abstract class CreazioneEventi {
     }
     public List<String> multiEventi(int n, Player player){//duplicazione evento,es:[muovitiVeloce,2]->[muovitiVeloce;muovitiVeloce]
 
-        List<String> step= Arrays.asList(player.getStep().split(","));
+        List<String> step= Arrays.asList(player.getCurrentStep().split(","));
 
         step.set(1,"1");
 
@@ -29,38 +31,45 @@ public abstract class CreazioneEventi {
         for (int i=0;i<n;i++) {
               r.add(s);
         }
-        player.delStep(player.iSteps);
-        player.setStep(r,player.iSteps);
         return r;
 
     }
-    public LinkedList<String> getStepPosNeg(String t){
+    public resStep getStepPosNeg(String t){
         String type="";
         String step="";
+        int i;
         do{
             Random random = new Random();
-            int i = random.nextInt(Nrighe);
+            i = random.nextInt(Nrighe);
             i = i % 2 == 0 ? i : i - 1;
             step=lines.get(i + 1).substring(1);
             type=lines.get(i + 1).substring(0,1);
         }while(!type.equals(t));//continuo a cercare un step con il tipo che voglio
-        return new LinkedList<String>(List.of(step.split(";")));
+        resStep r=new resStep();
+        r.setSteps(new LinkedList<String>(List.of(step.split(";"))));
+        r.setDesc(lines.get(i));
+        return r;
     }
     protected TypeCasella GetTypeCasella(){//mixCaselle>>0 ->piu caselle con eventi
         Random random=new Random();
-        if(random.nextInt(100+1)<mixCaselle) {//se esce minore di mixCaselle ->casella piena
+        if(random.nextInt(100+1)< ProbPiena) {//se esce minore di mixCaselle ->casella piena
             return TypeCasella.piena;
         }
         return TypeCasella.vuota;
     }
-    public LinkedList<String> getDefaultSteps(){
-        return new LinkedList<String>(List.of(new String[]{"movimento,1"}));
+    public resStep getDefaultSteps(){
+        return resStep.getResInstant("movimento,1","movimento");
     }
-    public LinkedList<String> generaSteps(int pCasella){//genero un evento
+    public resStep generaSteps(){//genero un evento
         Random random = new Random();
         int i = random.nextInt(Nrighe);
         i = i % 2 == 0 ? i : i - 1;
+        resStep r=new resStep();
         String step=lines.get(i + 1).substring(1,lines.get(i + 1).length());
-        return new LinkedList<String>(List.of(step.split(";")));
+        r.setSteps(new LinkedList<String>(List.of(step.split(";"))));
+        r.setDesc(List.of(lines.get(i)).toString());
+
+
+        return r;
     }
 }

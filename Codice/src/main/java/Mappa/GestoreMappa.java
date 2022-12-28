@@ -6,11 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import Entita.Player;
+import Gestione.resStep;
 
 import javax.imageio.ImageIO;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 public class GestoreMappa extends CreazioneEventi {
     private static
@@ -30,31 +29,35 @@ public class GestoreMappa extends CreazioneEventi {
         }
     }
 
-    public LinkedList<String> generaSteps(int pCasella){
+    public resStep generaSteps(int pCasella){
         if(pCasella<size) {
             if (caselle[pCasella].getTypeC()== TypeCasella.piena) {//casella non vuoto,genero evento
-                return super.generaSteps(pCasella);
+                return super.generaSteps();
             } else//evento movimento
             {
-                return new LinkedList<String>(List.of(new String[]{"movimento,1"}));
+                return resStep.getResInstant("movimento,1","movimento");
             }
         }
         System.err.println("fuori mappa");
-        return new LinkedList<String>(List.of(new String[]{"finito"}));
+
+        return resStep.getResInstant("finito","finito");
+    }
+    public resStep generaSteps(){
+        return super.generaSteps();
     }
 
-    private GestoreMappa(int size, String urlEventi, int mixCaselle,String spriteVuoto,String spritePieno) throws IOException {
+    private GestoreMappa(int size, String urlEventi, int ProbPiena,String spriteVuoto,String spritePieno) throws IOException {
         super(urlEventi);
         sprite=new String[]{spriteVuoto,spritePieno};
-        this.mixCaselle=mixCaselle;//probabilità caselle nulle
+        this.ProbPiena =ProbPiena;//probabilità caselle nulle
         this.size=size;
         caselle=new Casella[size];//creo la matrice di caselle
         generaMappa();
 
     }
-    public static GestoreMappa getInstance(int size, String urlEventi, int mixCaselle,String spriteVuoto,String spritePieno) throws IOException {
+    public static GestoreMappa getInstance(int size, String urlEventi, int ProbPiena,String spriteVuoto,String spritePieno) throws IOException {
         if(me==null)
-            me=new GestoreMappa(size,urlEventi,mixCaselle,spriteVuoto,spritePieno);
+            me=new GestoreMappa(size,urlEventi,ProbPiena,spriteVuoto,spritePieno);
         return me;
     }
     public static GestoreMappa getInstance(){

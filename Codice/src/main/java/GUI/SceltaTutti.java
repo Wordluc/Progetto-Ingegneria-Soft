@@ -1,22 +1,36 @@
 package GUI;
 
+import Gestione.resStep;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SceltaTutti extends Scelta{
-    private List<String> steps;
+    private ArrayList <resStep> steps;
     public SceltaTutti(int n){
-        super(n+4,3);
+        super(n+5,3);
+        setSize(600,600);
+        for(int i=0;i<buttons.length;i++) {
+            setButton(i, "" + i);
+        }
+    }
+    public resStep getStep(int i){
+        return steps.get(i);
     }
 
-    public void start(List<String>nomi, ArrayList<String> steps){
-        this.start(nomi);
+    public void start(List<String>nomi,ArrayList <resStep> steps){
+        super.start(nomi);
         this.steps=steps;
-        for(int i=0;i<nomi.size();i++)
-           setButton(i,""+i);
+        makeGui(nomi,10,"player");
+        setButtonsPosition(0);
+        List<String>testi=new LinkedList<>();
+        testi.add("<-------------------------->");
+        testi.add("Le scelte sono:");
 
-        steps.add(0,"");
-        steps.add(1,"Le scelte sono:");
-        makeGui(steps,200);
+        for(int i=0;i<steps.size();i++)
+           testi.add(i+":"+steps.get(i).getDesc());
+        makeGui(testi,10,"other");
+
     }
 }

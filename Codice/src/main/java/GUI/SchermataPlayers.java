@@ -30,9 +30,17 @@ public class SchermataPlayers extends JFrame  {
         label[i][0].setText(info[0]);
         label[i][1].setText(info[1]);
     }
+    public void setLabel(int i,String info){
+        label[i][1].setText(info);
+    }
+
+
     public boolean votaSceltaPosNeg(){
          return true;
     }
 
 
+    public String getLabelText(int i) {
+        return label[i][1].getText();
+    }
 }
