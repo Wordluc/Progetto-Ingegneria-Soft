@@ -1,19 +1,13 @@
-import GUI.SceltaTutti;
-import GUI.SchermataPlayers;
-import Gestione.Gestore;
-import Mappa.GestoreMappa;
+import ChoosePage.ChooseCharacter;
+import ChoosePage.WindowCharacter;
+import OpenPage.HomePage;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
+/*
         JFrame j =new JFrame();
         j.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         j.setSize(650,600);
@@ -46,6 +40,13 @@ public class Main {
        j.setVisible(true);
        m.generaMappa();
 
+*/
+        WindowCharacter w=new WindowCharacter(4,new String[]{"resource\\sprite\\p1.png"
+                ,"resource\\sprite\\p2.png"
+                ,"resource\\sprite\\p3.png"
+                ,"resource\\sprite\\p4.png"});
+        w.makeChoose();
+        w.setVisible(true);
 
 
     }

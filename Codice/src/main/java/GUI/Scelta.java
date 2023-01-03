@@ -50,7 +50,6 @@ public class Scelta extends JFrame{
              }
          }else
              for (int i = nomi.size(); i < nomi.size()+testi.size(); i++) {
-                 System.out.println(testi.get(i- nomi.size()));
                  label[i].setText(testi.get(i-nomi.size()));
                  label[i].setLocation(0, i * 60 + 20 + py);
 
