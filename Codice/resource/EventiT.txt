@@ -1,28 +1,26 @@
 Torna all'inizio
 -inizio,1
-Scelgo se andare Avanti/indietro in base al dado ,se il numero del dado è :pari vado avanti,dispari vado indietro
+Dado pari: vado avanti,Dado dispari: vado indietro
 +tiroDado,1;MovPari/dispari,1
-Movimento dimezzato per n turni randomici
+Movimento dimezzato per 'n' turni
 -movimento,n,0.5
-Stai fermo per n turni, in base al dado
+Stai fermo per 'n' turni
 -stop,n
 Tiro un altra volta
 +tiroDado,1
 Scambio la posizione con un giocatore random
 /scambioPosizione,1,Cu
-Scambio la posizione di tutti i giocatori, in senso antiorario
+Scambio la posizione dei giocatori, in senso antiorario
 /scambioPosizione,1,-1
-Scambio la posizione di tutti i giocatori, in modo randomico
+Scambio la posizione dei giocatori
 /scambioPosizione,1,Ct
-Avanzo *2 per un turno(esce 3 vado avanti di 6)
+Avanzo il doppio per un turno
 +movimento,1,*2
-Per due turni ogni volta che tiro il dado vado indietro (mi esce due vado a -2)
+Per 'n' turni ogni volta che tiro il dado vado indietro
 -movimento,2,-1
 Giocatori scelgono se farti fare un evento positivo o negativo
 /sceltaPosNeg,1
-Giocatori scelgono cosa farti fare in base ad un elenco di 3 eventi casuali
+Giocatori scelgono cosa farti fare
 /sceltaTutti,1
-più probabilità di avere solo eventi positivi per un turno
-+SetProb,1,0.75
-Tutti (eccetto lui) tornano alla posizione del turno precedente,senza considerare gli eventi
+Torna alla posizione del turno precedente
 -movimentoTurnoPrec,1

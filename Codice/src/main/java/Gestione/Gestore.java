@@ -26,6 +26,7 @@ public class Gestore extends JPanel {
 
     private Gestore(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
         this.mappa=mappa;
+
         this.ScPosNeg=new SceltaPosNeg(nomi.length-1);
         this.ScTot=new SceltaTutti(nomi.length-1);
         this.dado=new Dado();
@@ -37,6 +38,7 @@ public class Gestore extends JPanel {
             newStepPlayer(players[i]);
         }
         updateGPlayer();
+        ScPlayer.setLocation(700,0);
         ScPlayer.revalidate();
         ScPlayer.repaint();
     }
@@ -53,7 +55,7 @@ public class Gestore extends JPanel {
         for(int i =0;i<players.length;i++)
             if(i==iPlayer) {
                ScPlayer.setLabel(i, new String[]{"->Giocatore:" + players[i].nome, players[i].getStep().getDesc()});
-                players[iPlayer].getStep().setDesc(players[iPlayer].getStep().getDesc().replace("'n'", ""+(dado.faccia-1)));
+                players[iPlayer].getStep().setDesc(players[iPlayer].getStep().getDesc().replace("'n'", ""+players[iPlayer].getStep().getSize()));
 
             }else {
                 ScPlayer.setLabel(i, new String[]{"Giocatore:" + players[i].nome, players[i].getStep().getDesc()});
@@ -97,9 +99,9 @@ public class Gestore extends JPanel {
                   break;
               case "movimento":
                   dado.lanciaDado();
-                  if(step.length==2)
+                  if(step.length==2)//se non ci sono altre direttive ->movimento,1
                     player.movimento(dado.faccia);
-                  else{
+                  else{//movimento,1,..
                       if(step[2].equals("*2"))
                         player.movimento(dado.faccia*2);
                       else if(step[2].equals("-1"))
@@ -111,31 +113,7 @@ public class Gestore extends JPanel {
               case "stop"://non faccio niente
                   break;
               case "scambioPosizione":
-                  int a;
-                  if(step[2].equals("Cu")) {
-                      do {
-                          Random random = new Random();
-                        a=random.nextInt(4);
-                      }while(a==iPlayer);//la pedina A con cui mi scambio deve essere diversa da A
-                      //scambio posizione
-                      int p=players[a].getPosizione();
-                      players[a].setPosizione(players[iPlayer].getPosizione());
-                      players[iPlayer].setPosizione(p);
-                  }else if(step[2].equals("Ct")){
-                      for (int i =0;i<4;i++) {
-                          do {
-                              Random random = new Random();
-                              a = random.nextInt(4);
-                          } while (a == i);//la pedina A con cui mi scambio deve essere diversa da A
-                          //scambio posizione
-                          int p=players[a].getPosizione();
-                          players[a].setPosizione(players[iPlayer].getPosizione());
-                          players[iPlayer].setPosizione(p);
-                      }
-
-                  }else if(step[2].equals("-1")){
-                      movAntOrario();
-                  }
+                  extractedScambioPos(step);
                   break;
               case "sceltaPosNeg":
                       StopPLay();
@@ -163,6 +141,35 @@ public class Gestore extends JPanel {
           }
         return true;
     }
+
+    private void extractedScambioPos(String[] step) {
+        int a;
+        if(step[2].equals("Cu")) {
+            do {
+                Random random = new Random();
+              a=random.nextInt(4);
+            }while(a==iPlayer);//la pedina A con cui mi scambio deve essere diversa da A
+            //scambio posizione
+            int p=players[a].getPosizione();
+            players[a].setPosizione(players[iPlayer].getPosizione());
+            players[iPlayer].setPosizione(p);
+        }else if(step[2].equals("Ct")){
+            for (int i =0;i<4;i++) {
+                do {
+                    Random random = new Random();
+                    a = random.nextInt(4);
+                } while (a == i);//la pedina A con cui mi scambio deve essere diversa da A
+                //scambio posizione
+                int p=players[a].getPosizione();
+                players[a].setPosizione(players[iPlayer].getPosizione());
+                players[iPlayer].setPosizione(p);
+            }
+
+        }else if(step[2].equals("-1")){
+            movAntOrario();
+        }
+    }
+
     public static void StopPLay(){
          stato=!stato;
     }
@@ -180,10 +187,7 @@ public class Gestore extends JPanel {
             if(!loopEvento(p))
                 return;
             if (p.getPosizione() >= mappa.size) {
-                StopPLay();
-                JFrame fine=new JFrame();
-                fine.setSize(50,30);
-                fine.add(new JLabel("Vincitore:"+players[iPlayer].nome));
+                extractedFine();
                 return;
             }
             ScPlayer.setLabel(4, new String[]{"Dado:", String.valueOf(dado.faccia)});
@@ -199,6 +203,19 @@ public class Gestore extends JPanel {
                upPlayer();
             }
         }
+        extractedCheckScelte();
+        guiUpdate();
+    }
+
+    private void extractedFine() {
+        StopPLay();
+        JFrame fine=new JFrame();
+        fine.setSize(100,100);
+        fine.add(new JLabel("Vincitore:"+players[iPlayer].nome));
+        fine.setVisible(true);
+    }
+
+    private void extractedCheckScelte() {
         int outPN=ScPosNeg.getOutcome();
         int outT=ScTot.getOutcome();
         if(outPN!=-1){//gestione eventi scelta
@@ -210,8 +227,8 @@ public class Gestore extends JPanel {
             StopPLay();//faccio ripartire la partita
             upPlayer();
         }
-      guiUpdate();
     }
+
     private void upPlayer(){
         iPlayer = incrIplayer();
         if(players[iPlayer].getCurrentStep().equals("stop,1")) {
