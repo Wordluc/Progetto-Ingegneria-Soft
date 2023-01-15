@@ -8,6 +8,7 @@ import Mappa.TypeCasella;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Gestore extends JPanel {
     private static Gestore me=null;
     private final SceltaTutti ScTot;
 
-    private Gestore(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
+    private Gestore(GestoreMappa mappa, String[] nomi, BufferedImage image[]) throws IOException {
         this.mappa=mappa;
         this.ScPosNeg=new SceltaPosNeg(nomi.length-1);
         this.ScTot=new SceltaTutti(nomi.length-1);
@@ -33,16 +34,18 @@ public class Gestore extends JPanel {
         this.ScPlayer=new SchermataPlayers(nomi.length);
         players=new Player[Nplayer];
         for(int i=0;i<Nplayer;i++) {
-            players[i] = new Player(nomi[i],url[i],(i%2==0?0:50),(i<2?0:50));
+            players[i] = new Player(nomi[i],image[i],(i%2==0?0:50),(i<2?0:50));
             newStepPlayer(players[i]);
         }
         updateGPlayer();
         ScPlayer.revalidate();
         ScPlayer.repaint();
+
+
     }
-    public static Gestore getInstance(GestoreMappa mappa, String[] nomi, String[] url) throws IOException {
+    public static Gestore getInstance(GestoreMappa mappa, String[] nomi, BufferedImage image[]) throws IOException {
         if(me==null)
-            me=new Gestore(mappa,nomi,url);
+            me=new Gestore(mappa,nomi,image);
         return me;
     }
     private void newStepPlayer(Player player){//genero l'evento per il player
@@ -166,7 +169,7 @@ public class Gestore extends JPanel {
     public static void StopPLay(){
          stato=!stato;
     }
-    private List<String> getPlayerName(String elementR){//ritorno i nomi dei giocatori ,in caso tolgo elementR
+    public List<String> getPlayerName(String elementR){//ritorno i nomi dei giocatori ,in caso tolgo elementR
         List<String>r=new ArrayList<>();
         for(int i=0;i<players.length;i++)
             if(!players[i].nome.equals(elementR)){
@@ -174,7 +177,7 @@ public class Gestore extends JPanel {
             }
         return r;
     }
-    public void turnoPLayer(){//turno del giocatore,true->sono arrivato alla fine
+    public void loop(){//turno del giocatore,true->sono arrivato alla fine
         if(stato) {
             Player p = players[iPlayer];//player attivo
             if(!loopEvento(p))
@@ -182,8 +185,9 @@ public class Gestore extends JPanel {
             if (p.getPosizione() >= mappa.size) {
                 StopPLay();
                 JFrame fine=new JFrame();
-                fine.setSize(50,30);
+                fine.setSize(50,70);
                 fine.add(new JLabel("Vincitore:"+players[iPlayer].nome));
+                fine.setVisible(true);
                 return;
             }
             ScPlayer.setLabel(4, new String[]{"Dado:", String.valueOf(dado.faccia)});
@@ -215,7 +219,7 @@ public class Gestore extends JPanel {
     private void upPlayer(){
         iPlayer = incrIplayer();
         if(players[iPlayer].getCurrentStep().equals("stop,1")) {
-            turnoPLayer();
+            loop();
         }
     }
     private void guiUpdate(){

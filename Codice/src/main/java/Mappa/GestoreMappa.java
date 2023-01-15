@@ -64,7 +64,7 @@ public class GestoreMappa extends CreazioneEventi {
             return me;
     }
 
-    private String[] genMatrix(int xmax,int ymax){
+    public String[] genMatrix(int xmax, int ymax){
         String []pos=new String[xmax*ymax];
         int i=0;
         int xt=0;
@@ -109,5 +109,11 @@ public class GestoreMappa extends CreazioneEventi {
     @Override
     public String toString() {
         return "caselle:="+ "caselle=" + Arrays.toString(caselle);
+    }
+
+    public Object getCaselle(int i) {
+        if(i<caselle.length)
+          return caselle[i];
+        return null;
     }
 }

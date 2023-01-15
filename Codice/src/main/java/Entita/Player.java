@@ -1,8 +1,10 @@
 package Entita;
 
+import Entita.Strategy.print;
 import Gestione.resStep;
 import Mappa.GestoreMappa;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,12 +14,13 @@ public class Player extends Pawn implements Comparable<Player> {
     public int posizioneAntecedente;
     private resStep steps;
     public int iSteps;
+    private print toPrint;
 
     //--- private bool stato;
     //--- private int [][] posizione;
     //--- Pedina
-    public Player(String nomePlayer,String url,int xPawn,int yPawn) throws IOException {
-        super(url,xPawn,yPawn);
+    public Player(String nomePlayer, BufferedImage image, int xPawn, int yPawn) throws IOException {
+        super(image,xPawn,yPawn);
 
 
         this.nome=nomePlayer;
@@ -28,10 +31,10 @@ public class Player extends Pawn implements Comparable<Player> {
         posizione+=n;
         if(posizione<GestoreMappa.size)
             if(posizione>=0)
-               return false;
+               return true;
             else
                 posizione=0;
-        return true;
+        return false;
     }
     public void setPosizione(int i){
         posizioneAntecedente = posizione;
@@ -88,7 +91,7 @@ public class Player extends Pawn implements Comparable<Player> {
 
     @Override
     public String toString() {
-        return "nome"+nome+",posizione"+getPosizione()+":"+getSteps()+"i-esimostep"+iSteps;
+        return toPrint.print();
 
     }
     public int compareTo(Player u) {
@@ -97,5 +100,9 @@ public class Player extends Pawn implements Comparable<Player> {
         else if(getPosizione()<u.getPosizione())
             return -1;
         return 0;
+    }
+    public void setPrint(print print){
+          toPrint=print;
+          toPrint.setPLayer(this);
     }
 }
