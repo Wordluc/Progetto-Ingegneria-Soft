@@ -62,6 +62,7 @@
      GitHub <br> 
      Photoshop  <br> 
      Notion (per la gestione delle attività temporali) <br> 
+     CodeMR per misurare la complessità del sistema
 
 ## Cambiamenti
   I cambiamenti verranno gestiti tramite i change request e i branch con GitHub per tenere traccia degli sprint utilizziamo Notion. <br> 
