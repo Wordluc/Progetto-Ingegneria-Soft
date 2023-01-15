@@ -1,0 +1,28 @@
+Per gestire gli eventi/steps abbiamo optato per una strategia dinamica ,permettendo quindi al giocatore di poter personalizzare la propria partita andando a creare gli eventi partendo da step di default.
+Eventi di default :
+        inizio:torna al inizio
+
+        tiroDado:tira un altra volta il dado
+
+        movimento:
+            *2:vai avanti il doppio
+            -1:muoviti al indietro
+            0.5:muoviti la metà
+
+        stop:stai fermo
+
+        scambioPosizione
+
+        sceltaPosNeg:sceglio se dare un evento positivo o negativo
+
+        sceltaTutti:scegli quale evento far fare
+
+        movimentoTurnoPrec:torna al turno precedente
+
+        MovPari/dispari:se pari vai avanti,se dispari vai indietro
+
+Istruzione per assemblare un nuovo evento ,in evento'n' va inserito un evento di default,i modificatori dipendono dal tipo di evento scelto
+[evento1,per quanti turni,modificatore1,modificatore2,..;eventi2,per quanti turni,modificatore1,modificatore2..]
+es:
+    Avanzo il doppio per un turno
+    +movimento,1,*2
