@@ -14,10 +14,10 @@ import java.util.Arrays;
 public class GestoreMappa extends CreazioneEventi {
     private static
     GestoreMappa me=null;
-    public Casella caselle[];
+    private Casella caselle[];
 
     private final String sprite[];
-    public static int size;
+    public static int size=9;
     public void draw(Graphics g, Player ps[]){
         for (int ic=0;ic<size;ic++)
             caselle[ic].paint(g);
@@ -30,6 +30,7 @@ public class GestoreMappa extends CreazioneEventi {
     }
 
     public resStep generaSteps(int pCasella){
+
         if(pCasella<size) {
             if (caselle[pCasella].getTypeC()== TypeCasella.piena) {//casella non vuoto,genero evento
                 return super.generaSteps();
@@ -45,26 +46,31 @@ public class GestoreMappa extends CreazioneEventi {
     public resStep generaSteps(){
         return super.generaSteps();
     }
-
+    public Casella getCaselle(int i){
+        if(i<caselle.length)
+          return caselle[i];
+        return null;
+    }
     private GestoreMappa(int size, String urlEventi, int ProbPiena,String spriteVuoto,String spritePieno) throws IOException {
+
         super(urlEventi);
         sprite=new String[]{spriteVuoto,spritePieno};
         this.ProbPiena =ProbPiena;//probabilità caselle nulle
+
         this.size=size;
+
         caselle=new Casella[size];//creo la matrice di caselle
         generaMappa();
 
     }
     public static GestoreMappa getInstance(int size, String urlEventi, int ProbPiena,String spriteVuoto,String spritePieno) throws IOException {
+
         if(me==null)
             me=new GestoreMappa(size,urlEventi,ProbPiena,spriteVuoto,spritePieno);
         return me;
     }
-    public static GestoreMappa getInstance(){
-            return me;
-    }
 
-    public String[] genMatrix(int xmax, int ymax){
+    public String[] genMatrix(int xmax,int ymax){
         String []pos=new String[xmax*ymax];
         int i=0;
         int xt=0;
@@ -91,12 +97,12 @@ public class GestoreMappa extends CreazioneEventi {
     public TypeCasella getStatusCasellaVuota(int p){
             return caselle[p].getTypeC();
     }
-    public void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
+    private void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
         String[]s=genMatrix(size/5,5);
         BufferedImage vuoto= ImageIO.read(new File(sprite[0]));
         BufferedImage piena=ImageIO.read(new File(sprite[1]));
         TypeCasella stato=TypeCasella.piena;
-        System.out.println(caselle.length+"fff"+size);
+
         for (int i=0;i<size;i++) {
             stato =GetTypeCasella();
 
@@ -109,11 +115,5 @@ public class GestoreMappa extends CreazioneEventi {
     @Override
     public String toString() {
         return "caselle:="+ "caselle=" + Arrays.toString(caselle);
-    }
-
-    public Object getCaselle(int i) {
-        if(i<caselle.length)
-          return caselle[i];
-        return null;
     }
 }
