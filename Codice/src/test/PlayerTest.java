@@ -1,4 +1,5 @@
 import Entita.Player;
+import Entita.Strategy.printNome;
 import Entita.Strategy.printTot;
 import Gestione.resStep;
 import Mappa.GestoreMappa;
@@ -65,6 +66,8 @@ public class PlayerTest {
         p.movimento(2);
         p.movimento(4);
         p.setPrint(new printTot());
-        assertEquals(p.toString(),"nome 1,posizione 6");
+        assertEquals(p.toString(),"nome 1,posizione 6,step null,0");
+        p.setPrint(new printNome());
+        assertEquals(p.toString(),"1");
     }
 }

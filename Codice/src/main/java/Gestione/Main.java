@@ -28,9 +28,6 @@ public class Main{
 
         w.setVisible(true);
         w.repaint();
-
-
-
     }
     public static void start(BufferedImage[] image, String[] nameFinal) throws IOException {
         JFrame frame =new JFrame();

@@ -182,7 +182,7 @@ public class Gestore extends JPanel {
     public static void StopPLay(){
          stato=!stato;
     }
-    public List<String> getPlayerName(String elementToRemove){//ritorno i nomi dei giocatori ,in caso tolgo elementR
+    public  List<String> getPlayerName(String elementToRemove){                                               //ritorno i nomi dei giocatori ,in caso tolgo elementR
         List<String>r=new ArrayList<>();
         for(int i=0;i<players.length;i++)
             if(!players[i].nome.equals(elementToRemove)){

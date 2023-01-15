@@ -23,8 +23,6 @@ public class MappaTest {
         GestoreMappa m=GestoreMappa.getInstance(40,"resource\\Eventi.txt",20,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
         assertNotNull(m.getCaselle(1));
         assertNull(m.getCaselle(41));
-
-
     }
     @Test
     public void testMakeMappa()throws IOException {
@@ -36,8 +34,5 @@ public class MappaTest {
     public void testDefaultStep()throws IOException {
         GestoreMappa m=GestoreMappa.getInstance(40,"resource\\Eventi.txt",20,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
         assertEquals(m.getDefaultSteps().getDesc(),"movimento");
-
     }
-
-
 }

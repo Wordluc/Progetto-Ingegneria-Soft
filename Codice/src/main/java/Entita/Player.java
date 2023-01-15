@@ -91,6 +91,8 @@ public class Player extends Pawn implements Comparable<Player> {
 
     @Override
     public String toString() {
+        if(toPrint!=null)
+            return "errore inizializzazione ";
         return toPrint.print();
 
     }
