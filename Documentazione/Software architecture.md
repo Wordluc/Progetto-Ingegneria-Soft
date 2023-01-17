@@ -5,7 +5,8 @@ Lo stile architetturale che abbiamo usato è “programma principale con subrout
 ![VISTA STATICA](https://user-images.githubusercontent.com/47183391/213034299-d4f01f6b-1492-4176-adf7-b9a70eb74117.JPG)
 
 <h5>VISTA DINAMICA</h5><br>
-![VISTA DINAMICA](https://user-images.githubusercontent.com/47183391/213033916-fcf64269-491b-4c57-857b-fcfb7800f133.jpg)
+
+![VISTA DINAMICA](https://user-images.githubusercontent.com/47183391/213034348-6751a540-29ad-4033-864e-ee2055f412dc.jpg)
 
 Nella vista statica descriviamo graficamente i moduli generali
 Nella vista dinamica possiamo notare che abbiamo utilizzato swing come libreria grafica
