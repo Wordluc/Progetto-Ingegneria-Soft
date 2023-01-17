@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class Scelta extends JFrame{
+public abstract class Scelta extends JFrame{
     protected List<String> nomi;
     protected JLabel label[];
     protected JButton buttons[];

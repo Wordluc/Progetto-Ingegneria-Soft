@@ -11,7 +11,7 @@ import Gestione.resStep;
 import javax.imageio.ImageIO;
 import java.util.Arrays;
 
-public class GestoreMappa extends CreazioneEventi {
+public class GestoreMappa extends GestoreEventi {
     private static
     GestoreMappa me=null;
     private Casella caselle[];

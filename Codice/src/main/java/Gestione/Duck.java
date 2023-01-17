@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Main{
+public class Duck {
     public static void main(String[] args) throws IOException {
         HomePage home=new HomePage();
 
