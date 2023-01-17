@@ -1,3 +1,4 @@
+<h3> Testing</h3><br>
 Per il testing abbiamo deciso di misurare l’affidabilità delle classi più importanti, ovvero quelle che si occupano del funzionamento generale del sistema. <br>
 Le classi analizzate sono:<br>
  &emsp; &emsp; ●	Gestore: Verifica della corretta implementazione del singleton in modo che ci sia un unico gestore e la corretta gestione dei player<br>
