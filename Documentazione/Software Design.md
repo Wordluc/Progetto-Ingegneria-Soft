@@ -15,6 +15,9 @@ Nello sviluppo del codice, in particolare lato back-end, il team ha utilizzato i
  
  ![image](https://user-images.githubusercontent.com/40872910/213007982-c40a82b8-ee08-4214-8a84-e4b9efe9ce9b.png)<br>
  
+ 
+ 
+ 
  vc = r - n + p + 1<br>
  Il metodo utilizzato permette di stampare i nomi dei player togliendo il player con nome elementToRemove.<br>
 
