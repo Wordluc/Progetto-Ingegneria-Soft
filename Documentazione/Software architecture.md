@@ -8,6 +8,6 @@ Lo stile architetturale che abbiamo usato è “programma principale con subrout
 
 ![VISTA DINAMICA](https://user-images.githubusercontent.com/47183391/213034348-6751a540-29ad-4033-864e-ee2055f412dc.jpg)
 
-Nella vista statica descriviamo graficamente i moduli generali
-Nella vista dinamica possiamo notare che abbiamo utilizzato swing come libreria grafica
+Nella vista statica descriviamo graficamente i moduli generali<br>
+Nella vista dinamica possiamo notare che abbiamo utilizzato swing come libreria grafica<br>
 Il MAIN in questo caso dirige il flusso del sistema  
