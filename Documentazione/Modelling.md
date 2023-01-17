@@ -18,3 +18,4 @@ Stati generali del sistema<br>
 
 <h3>Diagramma delle classi</h3><br>
 
+![Diagramma delle classi](https://user-images.githubusercontent.com/47183391/213032188-9a6778f3-e9eb-43f5-947f-de4d7bc44f42.JPG)
