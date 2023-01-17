@@ -1,3 +1,4 @@
+<h3>Software Maintenance</h3><br>
 Nel corso dello sviluppo abbiamo dovuto modificare i nostri piani,in quanto durante lo sviluppo ci siamo accorti di alcune imprecisioni che influivano negativamente la stabilità del sistema e sulla sua comprensione.<br>
 Durante queste operazioni non ho aggiunto nessuna nuova funzione.<br>
 Sotto vi sono elencate diverse procedure di refactoring:<br>
