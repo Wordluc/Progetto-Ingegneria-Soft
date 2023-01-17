@@ -1,3 +1,4 @@
+<h3>Requirements Engineering</h3><br>
 La prima cosa che bisogna fare è analizzare i requisiti necessari al fine di implementare il prodotto finale. Oltre ai requisiti richiesti da “THE DUCK” <br>
 Inoltre i bibliotecari hanno suddiviso i requisiti funzionali secondo il modello MoSCoW.<br>
 Nel documento dei requisiti concordato con il cliente ci siamo accordati sui seguenti:<br>
