@@ -14,6 +14,8 @@ Nello sviluppo del codice, in particolare lato back-end, il team ha utilizzato i
  <h3>Complessità ciclomatica di McCabe</h3>
  
  ![image](https://user-images.githubusercontent.com/40872910/213007982-c40a82b8-ee08-4214-8a84-e4b9efe9ce9b.png)<br>
+ ![McCABE](https://user-images.githubusercontent.com/47183391/213032336-0c231b24-463d-4774-aab1-53ffd0840579.jpg)
+
  
  
  
