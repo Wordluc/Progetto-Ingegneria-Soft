@@ -10,3 +10,29 @@ Nello sviluppo del codice, in particolare lato back-end, il team ha utilizzato i
  &emsp; &emsp;“Strategy”: Permettendoci di personalizzare il tipo di stampa su console, in particolare:<br>
  &emsp; &emsp; &emsp;●	printTot<br>
  &emsp; &emsp; &emsp;●	printNome<br>
+ 
+ <h3>Complessità ciclomatica di McCabe</h3>
+ 
+ ![image](https://user-images.githubusercontent.com/40872910/213007982-c40a82b8-ee08-4214-8a84-e4b9efe9ce9b.png)<br>
+ 
+ vc = r - n + p + 1<br>
+ Il metodo utilizzato permette di stampare i nomi dei player togliendo il player con nome elementToRemove.<br>
+
+ <h3>Metriche del software:</h3>
+ 
+ ![image](https://user-images.githubusercontent.com/40872910/213008133-c21e9288-8017-4a67-b778-66df67e90cdd.png)<br>
+  
+  Legenda
+  &emsp;●	verde chiaro: basso
+  &emsp;●	verde scuro: basso-medio
+  &emsp;●	giallo: medio-alto<br>
+  
+  Nei diagrammi sono mostrate le metriche, ritenuti da noi più importanti, per avere una buona manutenibilità:<br>
+  &emsp;●	Coesione<br>
+  &emsp;●	Accoppiamento<br>
+  &emsp;●	Complessità<br>
+  &emsp;●	Linee di codice per classe<br>
+
+I diagrammi sono stati prodotti mediante l’uso di CodeMR, un'estensione di Intellij.<br>
+
+
