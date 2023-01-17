@@ -10,5 +10,5 @@ utilizzando il paradigma Capo squadra programmatore:	<br>
 &emsp; &emsp; ●	Utilizziamo la programmazione in coppia per le parti più critiche come la classe Gestore<br>
 &emsp; &emsp; ●	Utilizziamo GitHUB per la gestione delle versioni del progetto <br>
 Come approccio di progettazione software per lo sviluppo del sistema ci siamo attenuti al modello Scrum.<br>
-
+![Life_Cycle](./Modelling/Life_Cycle.png)
 
