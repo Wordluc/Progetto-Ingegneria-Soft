@@ -7,8 +7,8 @@ utilizzando il paradigma Capo squadra programmatore:	<br>
 &emsp; &emsp; ○	Capo squadra: Luca Frangiamore<br>
 &emsp; &emsp; ○	Assistente programmatore: Gianluigi Serra <br>
 &emsp; &emsp;  ○	Bibliotecario: Greta Marchetti<br>
-&emsp; &emsp; ●	Utilizziamo la programmazione in coppia per le parti più critiche come la classe Gestore<br>
-&emsp; &emsp; ●	Utilizziamo GitHUB per la gestione delle versioni del progetto <br>
+&emsp; ●	Utilizziamo la programmazione in coppia per le parti più critiche come la classe Gestore<br>
+&emsp; ●	Utilizziamo GitHUB per la gestione delle versioni del progetto <br>
 Come approccio di progettazione software per lo sviluppo del sistema ci siamo attenuti al modello Scrum.<br>
 
 
