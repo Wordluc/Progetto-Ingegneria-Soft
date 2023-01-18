@@ -10,3 +10,4 @@ Nel documento dei requisiti concordato con il cliente ci siamo accordati sui seg
    ●	Non Funzionali: <br>
  &ensp; &ensp; &ensp;      ○	Should have:<br>
  &ensp; &ensp; &ensp;      ○	Flessibilità<br>
+Fare riferimento alla parte di modelling per visionare il diagramma dei casi d'uso
