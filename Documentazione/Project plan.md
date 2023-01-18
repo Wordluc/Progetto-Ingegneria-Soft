@@ -16,13 +16,13 @@
   tracciando i task come issue su GitHub in modo che ogni persona del team sia al corrente di cosa stiano facendo gli altri.  <br> 
 
 ## Standard,linee guida e procedure:
-  Alla fine di ogni sprint bisogna creare un report in cui specificare gli obiettivi portati a termine, decisi all'interno dello sprint backlog.
+  Alla fine di ogni sprint bisogna creare un report in cui specificare gli obiettivi portati a termine, decisi all'interno dello sprint backlog.<br>
 
-## Attività di gestione:
-    Abbiamo usato il paradigma Capo squadra programmatore in cui :  
-       capo programmatore:Luca Frangiamore 
-       Assistente campo:Gianluigi Serra  
-       Bibliotecaria:Greta Fachinetti 
+<h3>Attività di gestione:</h2>
+    Abbiamo usato il paradigma Capo squadra programmatore in cui :  <br>
+    &emsp;&emsp;capo programmatore:Luca Frangiamore <br>
+    &emsp;&emsp;Assistente campo:Gianluigi Serra  <br>
+    &emsp;&emsp;Bibliotecaria:Greta Fachinetti<br> 
     
 ## Rischi:
   Nel nostro caso il principale rischio è la gestione grafica e l’organizzazione interna del team. <br> 
@@ -36,21 +36,21 @@
 
 ## Metodi e tecniche:
   Le tecniche che usiamo per la rappresentazione logica del progetto sono date dai seguenti diagrammi UML: <br> 
-     Diagramma casi di uso (per l'ingegneria dei requisiti) <br> 
-     Diagramma delle classi (per la fase di progettazione) <br> 
-     Diagramma di stato <br> 
-     Diagramma di attività <br> 
-     Diagramma di pacchetti <br> 
+  &emsp;&emsp;Diagramma casi di uso (per l'ingegneria dei requisiti) <br> 
+  &emsp;&emsp;Diagramma delle classi (per la fase di progettazione) <br> 
+  &emsp;&emsp;Diagramma di stato <br> 
+  &emsp;&emsp;Diagramma di attività <br> 
+  &emsp;&emsp;Diagramma di pacchetti <br> 
   Per la fase di implementazione e di test utilizziamo Java. <br> 
 
 ## Garanzie di qualità
   Per preservare la correttezza del nostro codice utilizziamo strumenti di collaborazione collettivi come GitHub e le conoscenze tecniche apprese durante l’anno accademico per preservare la conformità del software. <br> 
   Usiamo MoSCoW per gestire /scegliere i requisiti da considerare. <br> 
   I requisiti che abbiamo scelto sono <br> 
-     Must have:interfaccia grafica <br> 
-     Schould have:Selezione skin personaggio,possibilità di modificare gli eventi  <br> 
-     Could have:Multiplayer ovvero possibilità di giocare online <br> 
-     Won't have:Chat globale  <br> 
+  &emsp;&emsp;Must have:interfaccia grafica <br> 
+  &emsp;&emsp;Schould have:Selezione skin personaggio,possibilità di modificare gli eventi  <br> 
+  &emsp;&emsp;Could have:Multiplayer ovvero possibilità di giocare online <br> 
+  &emsp;&emsp;Won't have:Chat globale  <br> 
   
 ## Pacchetti di lavoro
   Per l’organizzazione del team di sviluppo utilizziamo il modello di gestione agile e quindi non implementiamo una struttura gerarchica. <br> 
@@ -58,11 +58,11 @@
   
 ## Risorse
   Le tecnologie utilizzate sono: <br> 
-     Java con le relative librerie aggiuntive <br> 
-     GitHub <br> 
-     Photoshop  <br> 
-     Notion (per la gestione delle attività temporali) <br> 
-     CodeMR per misurare la complessità del sistema
+  &emsp;&emsp;Java con le relative librerie aggiuntive <br> 
+  &emsp;&emsp;GitHub <br> 
+  &emsp;&emsp;Photoshop  <br> 
+  &emsp;&emsp;Notion (per la gestione delle attività temporali) <br> 
+  &emsp;&emsp;CodeMR per misurare la complessità del sistema
 
 ## Cambiamenti
   I cambiamenti verranno gestiti tramite i change request e i branch con GitHub per tenere traccia degli sprint utilizziamo Notion. <br> 
