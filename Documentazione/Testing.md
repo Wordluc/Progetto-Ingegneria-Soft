@@ -7,4 +7,4 @@ Le classi analizzate sono:<br>
  &emsp; &emsp; ●	Dado: Verifica della corretta generazione dei numeri (0-6)<br>
 
 Abbiamo verificato il tutto con l’uso di Junit.<br>
-Infine, mediante l’aiuto di tutto il team, abbiamo analizzato il codice per verificare la sua correttezza<br>
+Infine, mediante l’aiuto di tutto il team, abbiamo analizzato il codice per verificare la sua correttezza <br>
