@@ -9,6 +9,7 @@ Per gestire l'evento sceltaTot o sceltaNegPos<br>
 
 
 <h3>Diagramma dei componenti</h3><br>
+Abbiamo omesso DUCK, in quanto non l'abbiamo reputato essenziale per il funzionamento del sistema
 
 ![Diagramma dei conponenti](https://user-images.githubusercontent.com/47183391/213031978-6515af02-a438-438d-bdda-4b23fc3267c9.JPG)
 
