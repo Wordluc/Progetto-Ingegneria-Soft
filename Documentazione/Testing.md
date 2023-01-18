@@ -3,7 +3,7 @@ Per il testing abbiamo deciso di misurare l’affidabilità delle classi più im
 Le classi analizzate sono:<br>
  &emsp; &emsp; ●	Gestore: Verifica della corretta implementazione del singleton in modo che ci sia un unico gestore e la corretta gestione dei player<br>
  &emsp; &emsp; ●	Mappa: Verifica della corretta implementazione del singleton in modo che ci sia un’unica mappa e la corretta gestione delle caselle <br>
- &emsp; &emsp; e degli steps<br>
+ &emsp; &emsp;&emsp; e degli steps<br>
  &emsp; &emsp; ●	Player: Verifica della corretta implementazione degli steps e della loro esecuzione <br>
  &emsp; &emsp; ●	Dado: Verifica della corretta generazione dei numeri (0-6)<br>
 
