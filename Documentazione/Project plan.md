@@ -3,9 +3,9 @@
 ## Introduzione:
   In questo progetto vogliamo implementare il gioco Duck Game,lo scopo del gioco è completare un percorso in cui vi sono delle caselle e alcune di queste presentano vantaggi o penalità. <br> 
   Le persone coinvolte direttamente sono: <br> 
-  Luca Frangiamore:1074443<br>
-  Greta Marchetti:1072895<br>
-  Gianluigi Serra:1075712 <br> 
+  &emsp;&emsp;Luca Frangiamore:1074443<br>
+  &emsp;&emsp;Greta Marchetti:1072895<br>
+  &emsp;&emsp;Gianluigi Serra:1075712 <br> 
 
 ## Modello di processo:
   Per la fase di sviluppo decidiamo di implementare il progetto utilizzando il modello scrum. <br> 
@@ -42,11 +42,11 @@
   &emsp;&emsp;Diagramma delle classi (per la fase di progettazione) <br> 
   &emsp;&emsp;Diagramma di stato <br> 
   &emsp;&emsp;Diagramma di attività <br> 
-  &emsp;&emsp;Diagramma di pacchetti <br> 
-  Per la fase di implementazione e di test utilizziamo Java. <br> 
+  &emsp;&emsp;Diagramma di componenti <br> 
+  Per la fase di implementazione e di test utilizziamo Java e junit. <br> 
 
 ## Garanzie di qualità
-  Per preservare la correttezza del nostro codice utilizziamo strumenti di collaborazione collettivi come GitHub e le conoscenze tecniche apprese durante l’anno accademico per preservare la conformità del software. <br> 
+  Per preservare la correttezza del nostro codice utilizziamo strumenti di collaborazione collettivi come GitHub e le conoscenze tecniche apprese durante l’anno     accademico per preservare la conformità del software. <br> 
   Usiamo MoSCoW per gestire /scegliere i requisiti da considerare. <br> 
   I requisiti che abbiamo scelto sono <br> 
   &emsp;&emsp;Must have:interfaccia grafica <br> 
