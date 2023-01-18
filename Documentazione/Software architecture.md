@@ -1,5 +1,6 @@
 <h3>Software architecture</h3><br>
 Lo stile architetturale che abbiamo usato è “programma principale con subroutine”, in modo da suddividere il problema principale in classi, utilizzando il paradigma OOP.<br>
+
 <h5>VISTA STATICA</H5><b3>
 
 ![VISTA STATICA](https://user-images.githubusercontent.com/47183391/213034299-d4f01f6b-1492-4176-adf7-b9a70eb74117.JPG)
@@ -10,4 +11,4 @@ Lo stile architetturale che abbiamo usato è “programma principale con subrout
 
 Nella vista statica descriviamo graficamente i moduli generali<br>
 Nella vista dinamica possiamo notare che abbiamo utilizzato swing come libreria grafica<br>
-Il MAIN in questo caso dirige il flusso del sistema  
+Il MAIN in questo caso dirige il flusso del sistema,il main al interno del codice è rappresentato dalla classe DUCK
