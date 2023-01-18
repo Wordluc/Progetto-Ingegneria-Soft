@@ -3,7 +3,9 @@
 ## Introduzione:
   In questo progetto vogliamo implementare il gioco Duck Game,lo scopo del gioco è completare un percorso in cui vi sono delle caselle e alcune di queste presentano vantaggi o penalità. <br> 
   Le persone coinvolte direttamente sono: <br> 
-  Luca Frangiamore,Greta Marchetti,Gianluigi Serra. <br> 
+  Luca Frangiamore:1074443<br>
+  Greta Marchetti:1072895<br>
+  Gianluigi Serra:1075712 <br> 
 
 ## Modello di processo:
   Per la fase di sviluppo decidiamo di implementare il progetto utilizzando il modello scrum. <br> 
