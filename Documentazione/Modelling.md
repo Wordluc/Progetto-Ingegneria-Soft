@@ -5,7 +5,8 @@
 <h3>Diagramma delle attività</h3><br>
 Per gestire l'evento sceltaTot o sceltaNegPos<br>
   
-![Diagramma delle attivita](https://user-images.githubusercontent.com/47183391/213035595-5dff1f8d-7bf7-4d63-84e6-18448dc51b70.jpg)
+
+![Diagramma delle attivita](https://user-images.githubusercontent.com/47183391/214029538-ccb917d3-7445-46d3-a949-f8e9fa7ba680.JPG)
 
 
 <h3>Diagramma dei componenti</h3><br>
@@ -21,9 +22,3 @@ Stati generali del sistema<br>
 <h3>Diagramma delle classi</h3><br>
 
 ![Diagramma delle classi](https://user-images.githubusercontent.com/47183391/213032188-9a6778f3-e9eb-43f5-947f-de4d7bc44f42.JPG)
-
-<h3>Diagramma di sequenza</h3><br>
-<Gestione renderizzazione mappa e player
-          
-![WhatsApp Image 2023-01-17 at 11 44 32 AM](https://user-images.githubusercontent.com/40872910/214029333-7ff7f19e-aec1-4ae0-bc6e-b4d9aa294282.jpeg)
-
