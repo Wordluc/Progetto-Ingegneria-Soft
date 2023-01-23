@@ -21,3 +21,9 @@ Stati generali del sistema<br>
 <h3>Diagramma delle classi</h3><br>
 
 ![Diagramma delle classi](https://user-images.githubusercontent.com/47183391/213032188-9a6778f3-e9eb-43f5-947f-de4d7bc44f42.JPG)
+
+<h3>Diagramma di sequenza</h3><br>
+<Gestione renderizzazione mappa e player
+          
+![WhatsApp Image 2023-01-17 at 11 44 32 AM](https://user-images.githubusercontent.com/40872910/214029333-7ff7f19e-aec1-4ae0-bc6e-b4d9aa294282.jpeg)
+
