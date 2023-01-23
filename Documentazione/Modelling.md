@@ -18,7 +18,8 @@ Abbiamo omesso DUCK, in quanto non l'abbiamo reputato essenziale per il funziona
 <h3>Diagramma di stato</h3><br>
 Stati generali del sistema<br>
 
-![Diagramma di stato ](https://user-images.githubusercontent.com/40872910/213005299-46f097e8-e581-4e04-a95e-687cdb91f5d3.jpeg)
+![Diagramma di stato](https://user-images.githubusercontent.com/47183391/214029752-bf3acaec-c632-4099-8513-7fe0597aad44.JPG)
+
 
 <h3>Diagramma delle classi</h3><br>
 
