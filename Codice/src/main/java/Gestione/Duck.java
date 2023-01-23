@@ -3,8 +3,8 @@ package Gestione;
 
 
 import Mappa.GestoreMappa;
-import PagineSecondarie.OpenPage.ChoosePage.WindowCharacter;
-import PagineSecondarie.OpenPage.HomePage;
+import PagineSecondarie.ChoosePage.WindowCharacter;
+import PagineSecondarie.HomePage;
 
 
 import javax.swing.*;
