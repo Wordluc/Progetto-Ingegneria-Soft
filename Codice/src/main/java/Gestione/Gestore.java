@@ -51,6 +51,7 @@ public class Gestore extends JPanel {
 
 
     }
+
     public static Gestore getInstance(GestoreMappa mappa, String[] nomi, BufferedImage image[]) throws IOException {
         if(me==null)
             me=new Gestore(mappa,nomi,image);

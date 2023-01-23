@@ -25,4 +25,4 @@ Istruzione per assemblare un nuovo evento ,in evento'n' va inserito un evento di
 [evento1,per quanti turni,modificatore1,modificatore2,..;eventi2,per quanti turni,modificatore1,modificatore2..]
 es:
     Avanzo il doppio per un turno
-    +movimento,1,*2
+    +movimento,1,*2;
