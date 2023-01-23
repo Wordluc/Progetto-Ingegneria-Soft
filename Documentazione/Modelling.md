@@ -12,7 +12,8 @@ Per gestire l'evento sceltaTot o sceltaNegPos<br>
 <h3>Diagramma dei componenti</h3><br>
 Abbiamo omesso DUCK, in quanto non l'abbiamo reputato essenziale per il funzionamento del sistema
 
-![Diagramma dei conponenti](https://user-images.githubusercontent.com/47183391/213031978-6515af02-a438-438d-bdda-4b23fc3267c9.JPG)
+![Diagramma dei conponenti](https://user-images.githubusercontent.com/47183391/214029677-ad77572e-eb9d-424c-b4b0-537e76d884ab.JPG)
+
 
 <h3>Diagramma di stato</h3><br>
 Stati generali del sistema<br>
