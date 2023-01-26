@@ -93,6 +93,7 @@ public class GestoreMappa extends GestoreEventi {
             }
         }
         return pos;
+
     }
     public TypeCasella getStatusCasellaVuota(int p){
             return caselle[p].getTypeC();

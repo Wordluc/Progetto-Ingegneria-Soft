@@ -20,10 +20,12 @@ public class Duck {
 
     }
     public static void sceltaPersonaggi()  {
-        WindowCharacter w=new WindowCharacter(4,new String[]{"codice\\resource\\sprite\\p1.png"
+        WindowCharacter w=new WindowCharacter(4,new String[]{
+                "codice\\resource\\sprite\\p1.png"
                 ,"codice\\resource\\sprite\\p2.png"
                 ,"codice\\resource\\sprite\\p3.png"
-                ,"codice\\resource\\sprite\\p4.png"});
+                ,"codice\\resource\\sprite\\p4.png"
+        });
         w.makeChoose();
 
         w.setVisible(true);
