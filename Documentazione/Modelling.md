@@ -5,8 +5,9 @@
 <h3>Diagramma delle attività</h3><br>
 Per gestire l'evento sceltaTot o sceltaNegPos<br>
   
+![Diagramma delle attivita](https://user-images.githubusercontent.com/47183391/215108498-60023b1f-5a82-4d25-89c5-14cb6f1f4055.JPG)
 
-![Diagramma delle attivita](https://user-images.githubusercontent.com/47183391/214029538-ccb917d3-7445-46d3-a949-f8e9fa7ba680.JPG)
+
 
 
 <h3>Diagramma dei componenti</h3><br>
