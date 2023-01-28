@@ -51,17 +51,21 @@ public class WindowCharacter extends JFrame  {
 
     private void poll() throws IOException {
         urlFinal[i]=choose[i].getUrl();
-        i++;
-        if(i>=n){
-            for(int j=0;j<n;j++)
-                nameFinal[j]=choose[j].getName();
-            Duck.start(urlFinal,nameFinal);
-            setVisible(false);
-            return;
+        if(!choose[i].getName().isEmpty()) {
+            i++;
+            if(i>=n){
+                for(int j=0;j<n;j++)
+                    nameFinal[j]=choose[j].getName();
+                Duck.start(urlFinal,nameFinal);
+                setVisible(false);
+                return;
+            }
+            bSelect.setLocation(230, 17 + 60 * i);
+            choose[i].setOffOn(true);
+            choose[i - 1].setOffOn(false);
         }
-        bSelect.setLocation(230,17+60*i);
-        choose[i].setOffOn(true);
-        choose[i-1].setOffOn(false);
+
+
 
 
     }

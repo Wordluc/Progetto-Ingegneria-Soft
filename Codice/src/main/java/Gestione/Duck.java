@@ -35,7 +35,7 @@ public class Duck {
         JFrame frame =new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(650,600);
-        GestoreMappa m=GestoreMappa.getInstance(30,"codice\\resource\\Eventi.txt",20,"codice\\resource\\sprite\\vuoto.png","codice\\resource\\sprite\\pieno.png");
+        GestoreMappa m=GestoreMappa.getInstance(30,"codice\\resource\\Eventi.txt",20,new String[]{"codice\\resource\\sprite\\vuoto.png","codice\\resource\\sprite\\pieno.png","codice\\resource\\sprite\\fine.png"});
 
         Gestore g=Gestore.getInstance(m, nameFinal,image);
         g.start();

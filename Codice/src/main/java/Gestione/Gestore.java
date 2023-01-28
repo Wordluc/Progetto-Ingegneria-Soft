@@ -29,6 +29,8 @@ public class Gestore extends JPanel {
         this.mappa=mappa;
         this.ScPosNeg=new SceltaPosNeg(nomi.length-1);
         this.ScTot=new SceltaTutti(nomi.length-1);
+        ScPosNeg.setLocation(700,0);
+        ScTot.setLocation(700,0);
         this.dado=new Dado();
         this.Nplayer=nomi.length;
 

@@ -51,10 +51,10 @@ public class GestoreMappa extends GestoreEventi {
           return caselle[i];
         return null;
     }
-    private GestoreMappa(int size, String urlEventi, int ProbPiena,String spriteVuoto,String spritePieno) throws IOException {
+    private GestoreMappa(int size, String urlEventi, int ProbPiena,String []sprite) throws IOException {
 
         super(urlEventi);
-        sprite=new String[]{spriteVuoto,spritePieno};
+        this.sprite=sprite;
         this.ProbPiena =ProbPiena;//probabilità caselle nulle
 
         this.size=size;
@@ -63,10 +63,10 @@ public class GestoreMappa extends GestoreEventi {
         generaMappa();
 
     }
-    public static GestoreMappa getInstance(int size, String urlEventi, int ProbPiena,String spriteVuoto,String spritePieno) throws IOException {
+    public static GestoreMappa getInstance(int size, String urlEventi, int ProbPiena,String []sprite) throws IOException {
 
         if(me==null)
-            me=new GestoreMappa(size,urlEventi,ProbPiena,spriteVuoto,spritePieno);
+            me=new GestoreMappa(size,urlEventi,ProbPiena,sprite);
         return me;
     }
 
@@ -99,18 +99,30 @@ public class GestoreMappa extends GestoreEventi {
             return caselle[p].getTypeC();
     }
     private void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
-        String[]s=genMatrix(size/5,5);
+        String[]mappa=genMatrix(size/5,5);
         BufferedImage vuoto= ImageIO.read(new File(sprite[0]));
         BufferedImage piena=ImageIO.read(new File(sprite[1]));
-        TypeCasella stato=TypeCasella.piena;
+        BufferedImage fine=vuoto;
+        if(sprite.length==3)
+          fine=ImageIO.read(new File(sprite[2]));
+
+        TypeCasella stato=TypeCasella.vuota;
 
         for (int i=0;i<size;i++) {
-            stato =GetTypeCasella();
-
+            if(i!=0 && i!=size-1)//genera un evento se:non sono al inizio e non sono alla fine
+               stato =GetTypeCasella();
+            else {
+                if (i == size - 1) {
+                    caselle[i] = new Casella(i, stato, Integer.parseInt(mappa[i].split(",")[0]), Integer.parseInt(mappa[i].split(",")[1]), fine);
+                    return;
+                }
+                stato = TypeCasella.vuota;//genero un evento vuoto se sono al inizio o alla fine
+            }
             if(stato== TypeCasella.vuota)
-                caselle[i] = new Casella(i,stato,Integer.parseInt(s[i].split(",")[0]),Integer.parseInt(s[i].split(",")[1]),vuoto);
+                caselle[i] = new Casella(i,stato,Integer.parseInt(mappa[i].split(",")[0]),Integer.parseInt(mappa[i].split(",")[1]),vuoto);
             else
-                caselle[i] = new Casella(i,stato,Integer.parseInt(s[i].split(",")[0]),Integer.parseInt(s[i].split(",")[1]),piena);
+                caselle[i] = new Casella(i,stato,Integer.parseInt(mappa[i].split(",")[0]),Integer.parseInt(mappa[i].split(",")[1]),piena);
+
         }
     }
     @Override

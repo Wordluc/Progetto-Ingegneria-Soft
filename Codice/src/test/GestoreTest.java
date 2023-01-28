@@ -14,14 +14,14 @@ public class GestoreTest {
     @Test
     public void testGetInstant() throws IOException {//singleton
         Gestore g;
-        GestoreMappa m=GestoreMappa.getInstance(0,"resource\\Eventi.txt",20,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
+        GestoreMappa m=GestoreMappa.getInstance(0,"resource\\Eventi.txt",20,new String[]{"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png"});
         g=Gestore.getInstance(m,new String[]{"1","2","3","4"},new BufferedImage[]{null,null,null,null});
         assertNotNull(g);
     }
     @Test
     public void testPlayer() throws IOException {
         Gestore g=null;
-        GestoreMappa m=GestoreMappa.getInstance(0,"resource\\Eventi.txt",20,"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png");
+        GestoreMappa m=GestoreMappa.getInstance(0,"resource\\Eventi.txt",20,new String[]{"resource\\sprite\\vuoto.png","resource\\sprite\\pieno.png"});
         Player p=new Player("",null,0,0);
         g=Gestore.getInstance(m,new String[]{"1","2","3","4"},new BufferedImage[]{null,null,null,null});
         for(int i=0;i<4;i++) {

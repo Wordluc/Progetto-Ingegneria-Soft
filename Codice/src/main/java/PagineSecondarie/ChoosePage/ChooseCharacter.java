@@ -79,11 +79,13 @@ public class ChooseCharacter {
             }else
                 iSprite=urlSprites.length-1;
         }
-
-       draw();
+        System.out.println(y);
+        image.getGraphics().clearRect(0,y,50,50);
+        draw();
     }
     public void draw(){
-            image.getGraphics().drawImage(urlSprites[iSprite], 0, y, null);
+
+        image.getGraphics().drawImage(urlSprites[iSprite], 0, y, null);
     }
     public void setOffOn(boolean status){
         this.status=status;
