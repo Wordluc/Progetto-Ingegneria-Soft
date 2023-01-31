@@ -20,7 +20,7 @@ public class GestoreMappa extends GestoreEventi {
     public static int size=9;
     public void draw(Graphics g, Player ps[]){
         for (int ic=0;ic<size;ic++)
-            caselle[ic].paint(g);
+             caselle[ic].paint(g);
         for(int ip=0;ip<ps.length;ip++) {
             if (ps[ip].getPosizione() < size){
                 int []pos=caselle[ps[ip].getPosizione()].getPos();
