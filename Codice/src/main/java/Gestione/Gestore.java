@@ -34,6 +34,7 @@ public class Gestore extends JPanel {
         this.dado=new Dado();
         this.Nplayer=nomi.length;
 
+
         players=new Player[Nplayer];
         for(int i=0;i<Nplayer;i++) {
             players[i] = new Player(nomi[i],image[i],(i%2==0?0:50),(i<2?0:50));

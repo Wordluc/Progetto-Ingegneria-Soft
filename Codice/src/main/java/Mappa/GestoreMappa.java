@@ -99,6 +99,7 @@ public class GestoreMappa extends GestoreEventi {
             return caselle[p].getTypeC();
     }
     private void generaMappa() throws IOException {//assegnazione degli eventi ad ogni casella
+
         String[]mappa=genMatrix(size/5,5);
         BufferedImage vuoto= ImageIO.read(new File(sprite[0]));
         BufferedImage piena=ImageIO.read(new File(sprite[1]));

@@ -1,14 +1,17 @@
 package PagineSecondarie.ChoosePage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ChooseCharacter {
-    private JButton bButton=new JButton("<");
-    private JButton fButton=new JButton(">");
+    private JButton bButton=new JButton("⬅");
+    private JButton fButton=new JButton("➡");
     private Canvas image;
 
     private JPanel panel;
@@ -19,22 +22,36 @@ public class ChooseCharacter {
     private int y;
 
     public ChooseCharacter(int i, Canvas image, int y) {
+
         makePanel();
         iSprite=i;
         this.y=y;
         this.image=image;
+
         panel=new JPanel();
         name=new JTextField();
         name.setColumns(5);
-        name.setVisible(true);
-        panel.add(bButton);
-        panel.add(fButton);
-        panel.add(name);
-        panel.setSize(300,50);
 
+        name.setVisible(true);
+        panel.add(buttonFormat(bButton));
+        panel.add(buttonFormat(fButton));
+        panel.add(name);
+        image.setLocation(100,100);
+        panel.setSize(300,50);
+        panel.setOpaque(false);
+        panel.setVisible(true);
+        image.setVisible(true);
+        image.setBackground(Color.white);
+    }
+    private JButton buttonFormat(JButton b){
+        b.setBackground(new Color(255, 255, 204));
+
+
+
+        return b;
     }
 
-    public void setUrl(  BufferedImage urlSprites[]){
+    public void setUrl(BufferedImage urlSprites[]){
         this.urlSprites=urlSprites;
         draw();
     }
@@ -84,7 +101,6 @@ public class ChooseCharacter {
         draw();
     }
     public void draw(){
-
         image.getGraphics().drawImage(urlSprites[iSprite], 0, y, null);
     }
     public void setOffOn(boolean status){
